@@ -1,0 +1,8 @@
+.mdl-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.mdl-button .mud-button-label {
+    display: block;
+}

@@ -1,0 +1,46 @@
+@using AdventureArray.Application.UI.Client.Infrastructure.Berichten
+@using System.Collections.Specialized
+@inject IBerichtenManager BerichtenManager
+
+<MudList>
+    @if (BerichtenManager.Berichten.Count == 0)
+    {
+        <MudListItem>
+            <MudText Align="Align.Center">Er zijn geen openstaande notificaties 🎉</MudText>
+        </MudListItem>
+    }
+    else
+    {
+        <MudStack Justify="Justify.FlexEnd" Row="true" Class="mt-2 mx-4">
+            <MudButton Variant="Variant.Text" OnClick="@ClearAll">Wis alles</MudButton>
+        </MudStack>
+
+        @foreach (var bericht in BerichtenManager.Berichten)
+        {
+            <BerichtView Bericht="@bericht" ComponentDataUpdated="OnBerichtDataChanged" />
+        }
+    }
+</MudList>
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        BerichtenManager.Berichten.CollectionChanged += BerichtenManager_BerichtenChanged;
+    }
+
+    private void BerichtenManager_BerichtenChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        StateHasChanged();
+    }
+
+    private void OnBerichtDataChanged()
+    {
+        StateHasChanged();
+    }
+
+    private void ClearAll()
+    {
+        BerichtenManager.Berichten.Clear();
+    }
+}

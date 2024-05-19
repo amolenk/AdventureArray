@@ -1,0 +1,17 @@
+<Project>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+        <!-- We would like to use UseArtifactsOutput=true, but can't yet because of https://github.com/dotnet/efcore/issues/30725 -->
+		<UseArtifactsOutput>false</UseArtifactsOutput>
+		<ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+		<AnalysisLevel>latest-Recommended</AnalysisLevel>
+		<NoWarn>CA1200;CA1711;CA1716;CA1848</NoWarn>
+		<MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<NuGetAuditMode>all</NuGetAuditMode>
+		<NuGetAuditLevel>low</NuGetAuditLevel>
+		<UserSecretsId>AdventureArray</UserSecretsId>
+	</PropertyGroup>
+</Project>

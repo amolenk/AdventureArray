@@ -1,0 +1,20 @@
+﻿@using AdventureArray.Application.UI.Client.Infrastructure.Identity
+
+<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+	    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)">
+		    <Authorizing/>
+		    <NotAuthorized>
+			    @if (context.User.Identity?.IsAuthenticated != true)
+			    {
+			    <RedirectToLogin />
+			    }
+			    else
+			    {
+			    <MudAlert Severity="Severity.Error">You are not authorized to access this resource.</MudAlert>
+			    }
+		    </NotAuthorized>
+	    </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+</Router>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<RootNamespace>AdventureArray.Application.Simulator</RootNamespace>
+	</PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Application.Shared\Application.Shared.csproj" />
+      <ProjectReference Include="..\Infrastructure.ServiceDefaults\Infrastructure.ServiceDefaults.csproj" />
+    </ItemGroup>
+
+</Project>

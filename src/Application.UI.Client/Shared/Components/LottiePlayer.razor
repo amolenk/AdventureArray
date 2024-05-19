@@ -1,0 +1,104 @@
+@if (_showLottie)
+{
+    <lottie-player @ref="_lottiePlayerElement"
+                   src="@Src"
+                   background="@Background"
+                   speed="@Speed"
+                   style="width: @Width; height: @Height;"
+                   loop="@Loop"
+                   autoplay="@Autoplay"
+                   controls="@Controls"
+                   count="@Count"
+                   direction="@Direction"
+                   hover="@Hover">
+    </lottie-player>
+}
+
+@code {
+    ElementReference _lottiePlayerElement;
+
+    /// <summary>
+    ///     Bodymovin JSON data or URL to JSON.
+    /// </summary>
+    [Parameter]
+    public string Src { get; set; } = null!;
+
+    /// <summary>
+    ///     The background color of the Lottie player.
+    /// </summary>
+    [Parameter]
+    public string Background { get; set; } = "transparent";
+
+    /// <summary>
+    ///     The speed of the Lottie animation.
+    /// </summary>
+    [Parameter]
+    public decimal Speed { get; set; } = 1;
+
+    /// <summary>
+    ///     Whether the Lottie animation should loop.
+    /// </summary>
+    [Parameter]
+    public bool Loop { get; set; } = true;
+
+    /// <summary>
+    ///     Whether the Lottie animation should autoplay on load.
+    /// </summary>
+    [Parameter]
+    public bool Autoplay { get; set; } = true;
+
+    /// <summary>
+    ///     The width of the Lottie player.
+    /// </summary>
+    [Parameter]
+    public string Width { get; set; } = "300px";
+
+    /// <summary>
+    ///     The height of the Lottie player.
+    /// </summary>
+    [Parameter]
+    public string Height { get; set; } = "300px";
+
+    /// <summary>
+    ///     Whether the Lottie player should have controls.
+    /// </summary>
+    [Parameter]
+    public bool Controls { get; set; }
+
+    /// <summary>
+    ///     Number of times to loop animation.
+    /// </summary>
+    [Parameter]
+    public int? Count { get; set; }
+
+    /// <summary>
+    ///     Direction of animation
+    /// </summary>
+    [Parameter]
+    public int Direction { get; set; } = 1;
+
+    /// <summary>
+    ///     Whether to play on mouse hover.
+    /// </summary>
+    [Parameter]
+    public bool Hover { get; set; }
+
+    /// <summary>
+    ///     Delays the lottie animation with a certain amount of milliseconds.
+    /// </summary>
+    [Parameter]
+    public int Delay { get; set; }
+
+    private bool _showLottie = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Delay(Delay);
+            _showLottie = true;
+            StateHasChanged();
+        }
+    }
+
+}

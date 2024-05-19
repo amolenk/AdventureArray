@@ -1,0 +1,43 @@
+@page "/rides"
+@using AdventureArray.Application.UI.Client.Features.Rides.Components
+@using AdventureArray.Application.UI.Client.Features.Rides.Services
+@using AdventureArray.Application.UI.Model.Rides
+@inject IRideApiService RideApi
+
+<PageTitle>Rides</PageTitle>
+
+<MudText Typo="Typo.h3" Class="mb-4">Rides</MudText>
+
+<MudPaper Class="full-height overflow-hidden">
+    <RideTable Rides="@_rides" Loading="@_loading" />
+</MudPaper>
+
+@code {
+    [Parameter] public string Ean { get; set; } = null!;
+
+    private bool _loading;
+    private List<Ride>? _rides;
+
+    protected override async Task OnInitializedAsync()
+    {
+	    await GetRides();
+    }
+
+    private async Task GetRides()
+    {
+	    try
+	    {
+		    _loading = true;
+
+		    var result = await RideApi.GetRidesAsync();
+		    if (result is not null)
+		    {
+			    _rides = result.Rides;
+		    }
+	    }
+	    finally
+	    {
+		    _loading = false;
+	    }
+    }
+}

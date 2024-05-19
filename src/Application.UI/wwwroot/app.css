@@ -1,0 +1,65 @@
+:root {
+	--background-gradient: linear-gradient(104.19deg,#D20F00 6.38%,#D31300 10.74%,#E0440B 58.67%,#E86211 94.62%,#EB6E14 115.31%);
+	font-size: 14px;
+}
+
+.mdl-gradient-background {
+	background: var(--background-gradient);
+}
+
+.selected {
+	background-color: var(--mud-palette-secondary-hover);
+}
+
+body {
+	height: 100vh;
+	overflow: hidden;
+}
+
+.full-height {
+	height: 100%;
+}
+
+.full-screen-container {
+	flex-grow: 1;
+	overflow: auto;
+}
+
+@font-face {
+	font-family: 'Booster Next FY Regular';
+	src: url('fonts/booster-next-fy-regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Booster Next FY Bold';
+	src: url('fonts/booster-next-fy-bold.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Booster Next FY Light';
+	src: url('fonts/booster-next-fy-light.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Booster Next FY Medium';
+	src: url('fonts/booster-next-fy-medium.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Booster Next FY Thin';
+	src: url('fonts/booster-next-fy-thin.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+input[type="datetime-local"] {
+	padding: 0.75rem !important;
+}

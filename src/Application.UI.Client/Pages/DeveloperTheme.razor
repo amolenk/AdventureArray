@@ -1,0 +1,242 @@
+﻿@page "/developer-theme"
+
+<PageTitle>Theme demo</PageTitle>
+
+<MudText Typo="Typo.h1" Class="my-8">Colors</MudText>
+
+<MudGrid>
+    @foreach (var color in Enum.GetValues<Color>().Where(c => c != Color.Default && c != Color.Inherit && c != Color.Transparent && c != Color.Surface))
+    {
+        <MudItem xs="12" sm="12" md="4">
+            <MudPaper Elevation="1" Class="@($"mud-theme-{color.ToString().ToLowerInvariant()}")">
+                <MudText Typo="Typo.body1" Align="Align.Center" Class="py-16">@color</MudText>
+            </MudPaper>
+        </MudItem>
+    }
+</MudGrid>
+
+<MudText Typo="Typo.h1" Class="my-8">Components</MudText>
+
+<MudStack Spacing="8" Class="my-4">
+
+    <MudText Typo="Typo.h3">Button - Variant Filled </MudText>
+
+    <MudStack Row="true" Spacing="4">
+        <MudButton Variant="Variant.Filled">Default</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary">Secondary</MudButton>
+        <MudButton Variant="Variant.Filled" Disabled="true">Disabled</MudButton>
+    </MudStack>
+
+    <MudText Typo="Typo.h3">Button - Variant Outlined </MudText>
+
+    <MudStack Row="true" Spacing="4">
+        <MudButton Variant="Variant.Outlined">Default</MudButton>
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary">Primary</MudButton>
+        <MudButton Variant="Variant.Outlined" Color="Color.Secondary">Secondary</MudButton>
+        <MudButton Variant="Variant.Outlined" Disabled="true">Disabled</MudButton>
+    </MudStack>
+
+    <MudText Typo="Typo.h3">FAB button </MudText>
+
+    <MudStack Row="true" Spacing="4">
+        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"/>
+        <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Edit"/>
+        <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.ShoppingCart" DisableElevation="true"/>
+        <MudFab StartIcon="@Icons.Material.Filled.Bookmark" Label="Bookmark"/>
+        <MudFab StartIcon="@Icons.Material.Filled.Save" Disabled="true"/>
+    </MudStack>
+
+    <MudText Typo="Typo.h3">Button - Variant Text </MudText>
+
+    <MudStack Row="true" Spacing="4">
+        <MudButton Variant="Variant.Text">Default</MudButton>
+        <MudButton Variant="Variant.Text" Color="Color.Primary">Primary</MudButton>
+        <MudButton Variant="Variant.Text" Color="Color.Secondary">Secondary</MudButton>
+        <MudButton Variant="Variant.Text" Disabled="true">Disabled</MudButton>
+    </MudStack>
+
+    <MudText Typo="Typo.h3">Loading Button </MudText>
+
+    <MudStack Row="true" Spacing="4">
+        <LoadingButton OnClick="async () => {await Task.Delay(2000);}">Primary</LoadingButton>
+        <LoadingButton OnClick="async () => {await Task.Delay(2000);}" Color="Color.Secondary">Secondary</LoadingButton>
+        <LoadingButton OnClick="async () => {await Task.Delay(2000);}" Destructive="true">Destructive</LoadingButton>
+
+        <LoadingButton OnClick="async () => {await Task.Delay(2000);}" Variant="Variant.Outlined">Outlined</LoadingButton>
+        <LoadingButton OnClick="async () => {await Task.Delay(2000);}" Color="Color.Secondary" Variant="Variant.Outlined">Secondary</LoadingButton>
+	    <LoadingButton OnClick="async () => {await Task.Delay(2000);}" Variant="Variant.Text">Text</LoadingButton>
+	    <LoadingButton OnClick="async () => {await Task.Delay(2000);}" Variant="Variant.Text" Color="Color.Secondary">Secondary</LoadingButton>
+    </MudStack>
+
+    <MudText Typo="Typo.h3">Chip </MudText>
+
+    <MudStack Row="true" Spacing="4">
+        <MudChip>Default</MudChip>
+        <MudChip Color="Color.Primary">Primary</MudChip>
+        <MudChip Color="Color.Secondary">Secondary</MudChip>
+        <MudChip Color="Color.Info">Info</MudChip>
+        <MudChip Color="Color.Success">Success</MudChip>
+        <MudChip Color="Color.Warning">Warning</MudChip>
+        <MudChip Color="Color.Error">Error</MudChip>
+        <MudChip Color="Color.Dark">Dark</MudChip>
+    </MudStack>
+
+    <MudStack Row="true" Spacing="4">
+        <MudChip Variant="Variant.Text" Color="Color.Default">Default</MudChip>
+        <MudChip Variant="Variant.Text" Color="Color.Primary">Primary</MudChip>
+        <MudChip Variant="Variant.Text" Color="Color.Secondary">Secondary</MudChip>
+        <MudChip Variant="Variant.Text" Color="Color.Info">Info</MudChip>
+        <MudChip Variant="Variant.Text" Color="Color.Success">Success</MudChip>
+        <MudChip Variant="Variant.Text" Color="Color.Warning">Warning</MudChip>
+        <MudChip Variant="Variant.Text" Color="Color.Error">Error</MudChip>
+        <MudChip Variant="Variant.Text" Color="Color.Dark">Dark</MudChip>
+    </MudStack>
+
+    <MudText Typo="Typo.h3">Chip - Disabled </MudText>
+
+    <MudStack Row="true" Spacing="4">
+        <MudChip Disabled="true">Default</MudChip>
+        <MudChip Disabled="true" Color="Color.Primary">Primary</MudChip>
+        <MudChip Disabled="true" Color="Color.Secondary">Secondary</MudChip>
+        <MudChip Disabled="true" Color="Color.Info">Info</MudChip>
+        <MudChip Disabled="true" Color="Color.Success">Success</MudChip>
+        <MudChip Disabled="true" Color="Color.Warning">Warning</MudChip>
+        <MudChip Disabled="true" Color="Color.Error">Error</MudChip>
+        <MudChip Disabled="true" Color="Color.Dark">Dark</MudChip>
+    </MudStack>
+
+    <MudText Typo="Typo.h3">Card </MudText>
+
+    <MudCard >
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">The Story Book</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default"/>
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+
+            <MudText>This day everything happened.</MudText>
+            <MudText Typo="Typo.body2">The quick, brown fox jumps over a lazy dog.</MudText>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+        </MudCardActions>
+    </MudCard>
+
+    <MudText Typo="Typo.h3">Alerts </MudText>
+
+    <MudAlert Severity="Severity.Normal">The reactor type is RBMK-1000</MudAlert>
+    <MudAlert Severity="Severity.Info">The reactor was fired up successfully</MudAlert>
+    <MudAlert Severity="Severity.Success">The reactor is running at optimum temperature</MudAlert>
+    <MudAlert Severity="Severity.Warning">The reactor temperature exceeds the optimal range</MudAlert>
+    <MudAlert Severity="Severity.Error">Meltdown is imminent</MudAlert>
+
+    <MudText Typo="Typo.h3">Forms</MudText>
+
+    <MudCard Class="pa-8">
+        <MudGrid>
+            <MudItem xs="12" sm="6" md="4">
+                <MudAutocomplete T="string" Label="US States" @bind-Value="_value1" SearchFunc="@Search1"
+                                 ResetValueOnEmptyText="@_resetValueOnEmptyText"
+                                 CoerceText="@_coerceText" CoerceValue="@_coerceValue"/>
+            </MudItem>
+            <MudItem xs="12" sm="6" md="4">
+                <MudAutocomplete T="string" Label="US States" @bind-Value="_value2" SearchFunc="@Search2"
+                                 ResetValueOnEmptyText="@_resetValueOnEmptyText"
+                                 CoerceText="@_coerceText" CoerceValue="@_coerceValue"
+                                 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary"/>
+            </MudItem>
+            <MudItem xs="12" md="12">
+                <MudText Class="mb-n3" Typo="Typo.body2">
+                    <MudChip>@(_value1 ?? "Not selected")</MudChip><MudChip>@(_value2 ?? "Not selected")</MudChip>
+                </MudText>
+            </MudItem>
+            <MudItem xs="12" md="12" class="flex-column">
+                <MudSwitch @bind-Checked="_resetValueOnEmptyText" Color="Color.Primary">Reset Value on empty Text</MudSwitch>
+                <MudSwitch @bind-Checked="_coerceText" Color="Color.Secondary">Coerce Text to Value</MudSwitch>
+                <MudSwitch @bind-Checked="_coerceValue" Color="Color.Tertiary">Coerce Value to Text (if not found)</MudSwitch>
+            </MudItem>
+        </MudGrid>
+    </MudCard>
+
+    <MudText Typo="Typo.h3">Paper - Elevation</MudText>
+
+    <MudStack Row="true" Spacing="4">
+        <MudPaper Class="pa-16 ma-2" Elevation="0"></MudPaper>
+        <MudPaper Class="pa-16 ma-2"></MudPaper>
+        <MudPaper Class="pa-16 ma-2" Elevation="3"></MudPaper>
+    </MudStack>
+
+    <MudText Typo="Typo.h3" Class="mb-8">Lottie animations</MudText>
+
+    <LottiePlayer Src="./assets/checkmark.json" Speed="1" Loop="true"/>
+
+    <MudText Typo="Typo.h1" Class="mb-8">Typography</MudText>
+
+    <MudStack Spacing="4">
+        <MudText Typo="Typo.h1">h1. Heading</MudText>
+        <MudText Typo="Typo.h2">h2. Heading</MudText>
+        <MudText Typo="Typo.h3">h3. Heading</MudText>
+        <MudText Typo="Typo.h4">h4. Heading</MudText>
+        <MudText Typo="Typo.h5">h5. Heading</MudText>
+        <MudText Typo="Typo.h6">h6. Heading</MudText>
+        <MudText Typo="Typo.subtitle1">subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur</MudText>
+        <MudText Typo="Typo.subtitle2">subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur</MudText>
+        <MudText Typo="Typo.body1">body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</MudText>
+        <MudText Typo="Typo.body2">body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</MudText>
+        <MudText Typo="Typo.button">BUTTON TEXT</MudText>
+        <MudText Typo="Typo.caption">caption text</MudText>
+        <MudText Typo="Typo.overline">OVERLINE TEXT</MudText>
+    </MudStack>
+
+</MudStack>
+
+@code {
+    private bool _resetValueOnEmptyText;
+    private bool _coerceText;
+    private bool _coerceValue;
+    private string _value1 = "";
+    private string _value2 = "";
+
+    private string[] _states =
+    {
+        "Alabama", "Alaska", "American Samoa", "Arizona",
+        "Arkansas", "California", "Colorado", "Connecticut",
+        "Delaware", "District of Columbia", "Federated States of Micronesia",
+        "Florida", "Georgia", "Guam", "Hawaii", "Idaho",
+        "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+        "Louisiana", "Maine", "Marshall Islands", "Maryland",
+        "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+        "Missouri", "Montana", "Nebraska", "Nevada",
+        "New Hampshire", "New Jersey", "New Mexico", "New York",
+        "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio",
+        "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico",
+        "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+        "Texas", "Utah", "Vermont", "Virgin Island", "Virginia",
+        "Washington", "West Virginia", "Wisconsin", "Wyoming",
+    };
+
+    private async Task<IEnumerable<string>> Search1(string value)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5);
+
+        // if text is null or empty, show complete list
+        if (string.IsNullOrEmpty(value))
+            return _states;
+        return _states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private async Task<IEnumerable<string>> Search2(string value)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5);
+
+        // if text is null or empty, don't return values (drop-down will not open)
+        return string.IsNullOrEmpty(value) ? Array.Empty<string>() : _states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+}

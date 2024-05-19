@@ -1,0 +1,46 @@
+@using Microsoft.AspNetCore.SignalR.Client
+@implements IAsyncDisposable
+@inject ILogger<NotificationHubRelay> Logger
+@inject IMediator Mediator
+@inject NavigationManager NavigationManager
+
+@code {
+
+    public const string OperationName = "PublishNotification";
+
+    private HubConnection? _hubConnection;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/hub"))
+            .Build();
+
+        _hubConnection.On<string, string>(OperationName, async (messageTypeName, messagePayload) =>
+        {
+            Logger.LogInformation("Received server message: " + messageTypeName);
+            
+            try
+            {
+                var messageType = Type.GetType(messageTypeName, throwOnError: true)!;
+                var message = JsonSerializer.Deserialize(messagePayload, messageType)!;
+
+                await Mediator.Publish(message);
+            }
+            catch (Exception e)
+            {
+                Logger.LogError("Failed to deserialize server message: " + e);
+            }
+        });
+        
+        await _hubConnection.StartAsync();
+    }
+    
+    public async ValueTask DisposeAsync()
+    {
+        if (_hubConnection is not null)
+        {
+            await _hubConnection.DisposeAsync();
+        }
+    }
+}

@@ -1,0 +1,25 @@
+@inject IWebAssemblyHostEnvironment Env
+
+@if (_showDeveloperToolsButton)
+{
+    <MudIconButton Icon="@Icons.Material.Filled.DeveloperMode" 
+                   Color="Color.Inherit" 
+                   Edge="Edge.End" 
+                   OnClick="@OnClick" />
+}
+
+@code {
+
+    bool _showDeveloperToolsButton;
+
+    [Parameter]    
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [SupplyParameterFromQuery(Name = "_dev")]
+    bool? ShowDevTools { get; set; }
+    
+    protected override void OnInitialized()
+    {
+        _showDeveloperToolsButton = ShowDevTools is true || (Env.IsDevelopment() && ShowDevTools is not false);
+    }
+}

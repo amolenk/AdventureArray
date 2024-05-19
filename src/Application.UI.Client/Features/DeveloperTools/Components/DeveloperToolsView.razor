@@ -1,0 +1,58 @@
+@using AdventureArray.Application.UI.Client.Features.DeveloperTools.Models
+@using AdventureArray.Application.UI.Client.Infrastructure.Http
+@inject IConfiguration Configuration
+@inject IDialogService DialogService
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+<div class="mt-4">
+    <MudStack AlignItems="AlignItems.Center">
+        <MudNavLink FullWidth="true" OnClick="Claims">Claims</MudNavLink>
+        <MudNavLink OnClick="DeveloperTheme">Developer Theme</MudNavLink>
+        <MudDivider/>
+        <MudText Typo="Typo.h6">API</MudText>
+        <MudSlider @bind-Value="@ApiRequestHandler.DeveloperSettings.DelayInMilliseconds" Min="0" Max="5000" Step="100" Class="pl-8 pr-4">
+            <MudText Class="mb-2">Vertraging: @ApiRequestHandler.DeveloperSettings.DelayInMilliseconds.ToString() ms</MudText>
+        </MudSlider>
+        <MudSlider @bind-Value="@ApiRequestHandler.DeveloperSettings.FailureRate" Min="0" Max="100" Step="5" Class="pl-8 pr-4">
+            <MudText Class="mb-2">Falende requests: @ApiRequestHandler.DeveloperSettings.FailureRate.ToString()%</MudText>
+        </MudSlider>
+        @if (_settings.Links?.Count > 0)
+        {
+            <MudDivider/>
+            <MudText Typo="Typo.h6">Links</MudText>
+            @foreach (var link in _settings.Links)
+            {
+                <MudNavLink FullWidth="true" OnClick="() => OpenUrlInNewTabAsync(link.Value)">@link.Key</MudNavLink>
+            }
+        }
+    </MudStack>
+</div>
+
+@code{
+
+    private IDialogReference? _claimsDialog;
+
+    private readonly DeveloperToolsSettings _settings = new();
+
+    protected override void OnInitialized()
+    {
+        Configuration.GetSection(DeveloperToolsSettings.ConfigurationSectionName).Bind(_settings);
+    }
+
+    private void Claims()
+    {
+        var options = new DialogOptions { MaxWidth = MaxWidth.Medium };
+        _claimsDialog = DialogService.Show<ClaimsDialog>("Claims", options);
+    }
+
+    private void DeveloperTheme()
+    {
+        NavigationManager.NavigateTo("/developer-theme");
+    }
+
+    private ValueTask OpenUrlInNewTabAsync(string url)
+    {
+        return JSRuntime.InvokeVoidAsync("open", CancellationToken.None, [ url, "_blank" ]);
+    }
+}

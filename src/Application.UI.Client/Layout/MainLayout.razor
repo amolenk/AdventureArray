@@ -1,0 +1,90 @@
+﻿@inherits LayoutComponentBase
+@using AdventureArray.Application.UI.Client.Features.Berichten.Components
+@using AdventureArray.Application.UI.Client.Features.DeveloperTools.Components
+@using AdventureArray.Application.UI.Client.Features.Gebruikersvoorkeuren.Components
+@using AdventureArray.Application.UI.Client.Infrastructure.ErrorHandling
+@using AdventureArray.Application.UI.Client.Infrastructure.SignalR
+@using AdventureArray.Application.UI.Client.Theme
+
+<ErrorHandler/>
+<GebruikersvoorkeurenProvider>
+
+    <MyMudProviders/>
+    <MyMudThemeProvider/>
+    <BerichtenSnackbar/>
+
+    <AuthorizeView>
+        <Authorized>
+            <NotificationHubRelay/>
+        </Authorized>
+    </AuthorizeView>
+
+<MudLayout>
+    <MudAppBar Elevation="1" Class="d-block mdl-gradient-background">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(_ => ToggleLeftDrawer())" />
+        <MudText Typo="Typo.h3" Color="Color.Surface" Class="ml-8">Adventure Array</MudText>
+        <MudSpacer />
+        <MudStack Row="true" Spacing="4">
+            <BerichtenCentrumToggle OnClick="@(_ => ToggleRightDrawer(RightDrawerContent.NotificationCenter))"/>
+            <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Inherit" Edge="Edge.End" OnClick="@(_ => ToggleRightDrawer(RightDrawerContent.UserAccount))"/>
+            <DeveloperToolsToggle OnClick="@(_ => ToggleRightDrawer(RightDrawerContent.DeveloperTools))"/>
+        </MudStack>
+    </MudAppBar>
+    <MudDrawer @bind-Open="_leftDrawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu />
+    </MudDrawer>
+    <MudDrawer @bind-Open="_rightDrawerOpen" ClipMode="DrawerClipMode.Always" Anchor="Anchor.End" Elevation="2">
+        @switch (_rightDrawerContent)
+        {
+            case RightDrawerContent.NotificationCenter:
+                <BerichtenCentrumView />
+                break;
+            case RightDrawerContent.UserAccount:
+                <GebruikersAccount />
+                break;
+            case RightDrawerContent.DeveloperTools:
+                <DeveloperToolsView />
+                break;
+        }
+    </MudDrawer>
+        <MudMainContent Class="full-height d-flex">
+            <MudContainer MaxWidth="MaxWidth.False" Class="pa-4 full-screen-container d-flex flex flex-column">
+                @Body
+            </MudContainer>
+        </MudMainContent>
+</MudLayout>
+
+</GebruikersvoorkeurenProvider>
+
+@code {
+
+    enum RightDrawerContent
+    {
+        NotificationCenter,
+        UserAccount,
+        DeveloperTools
+    }
+
+    bool _leftDrawerOpen = true;
+    bool _rightDrawerOpen;
+
+    RightDrawerContent? _rightDrawerContent;
+
+    void ToggleLeftDrawer()
+    {
+        _leftDrawerOpen = !_leftDrawerOpen;
+    }
+
+    void ToggleRightDrawer(RightDrawerContent content)
+    {
+        if (_rightDrawerOpen && _rightDrawerContent == content)
+        {
+            _rightDrawerOpen = false;
+            _rightDrawerContent = null;
+            return;
+        }
+
+        _rightDrawerOpen = true;
+        _rightDrawerContent = content;
+    }
+}

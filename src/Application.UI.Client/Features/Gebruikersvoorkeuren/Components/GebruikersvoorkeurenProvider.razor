@@ -1,0 +1,49 @@
+@using AdventureArray.Application.UI.Model.Gebruiker
+@using AdventureArray.Application.UI.Client.Features.Gebruikersvoorkeuren.Services
+@using AdventureArray.Application.UI.Client.Features.Gebruikersvoorkeuren.Models
+@implements MassTransit.IConsumer<GebruikersvoorkeurenProvider.UpdateGebruikersvoorkeurenUICommand>
+@implements IDisposable
+@inject IGebruikersvoorkeurenApiService VoorkeurenApi
+@inject IMediator Mediator
+
+<CascadingValue Value="@_currentGebruikersvoorkeuren">
+    @ChildContent
+</CascadingValue>
+
+@code {
+
+    public record UpdateGebruikersvoorkeurenUICommand(DarkModeSetting? DarkMode);
+
+    private Gebruikersvoorkeuren _currentGebruikersvoorkeuren = new();
+    private ConnectHandle? _mediatorSubscription;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _mediatorSubscription = Mediator.ConnectInstance(this);
+
+        var voorkeuren = await VoorkeurenApi.GetGebruikersvoorkeurenAsync();
+
+        _currentGebruikersvoorkeuren = new Gebruikersvoorkeuren
+        {
+            DarkMode = voorkeuren?.DarkMode ?? DarkModeSetting.Auto
+        };
+    }
+
+    public async Task Consume(ConsumeContext<UpdateGebruikersvoorkeurenUICommand> context)
+    {
+        var response = await VoorkeurenApi.UpdateGebruikersvoorkeurenAsync(
+            context.Message.Adapt<UpdateGebruikersvoorkeurenRequest>());
+
+        _currentGebruikersvoorkeuren = response.Adapt<Gebruikersvoorkeuren>();
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        _mediatorSubscription?.Dispose();
+    }
+}

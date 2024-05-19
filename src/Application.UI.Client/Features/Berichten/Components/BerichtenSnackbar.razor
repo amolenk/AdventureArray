@@ -1,0 +1,25 @@
+@inject IMediatorSubscriber MediatorSubscriber
+@inject ISnackbar Snackbar
+@implements IConsumer<UserNotification>
+@implements IDisposable
+
+@code {
+
+    private IDisposable? _mediatorSubscription;
+
+    protected override void OnInitialized()
+    {
+        _mediatorSubscription = MediatorSubscriber.Subscribe(this);
+    }
+
+    public Task Consume(ConsumeContext<UserNotification> context)
+    {
+        Snackbar.Add(context.Message.Name);
+        return Task.CompletedTask;
+    }
+
+    public void Dispose()
+    {
+        _mediatorSubscription?.Dispose();
+    }
+}

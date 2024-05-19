@@ -1,0 +1,69 @@
+@using AdventureArray.Application.UI.Client.Infrastructure.Http
+@inject IMediatorSubscriber MediatorSubscriber
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@implements IConsumer<ErrorHandler.HandleExceptionCommand>
+@implements IDisposable
+
+@code {
+
+    private IDisposable? _mediatorSubscription;
+    private IDialogReference? _dialogRef;
+
+    public record HandleExceptionCommand(Exception Exception);
+
+    protected override void OnInitialized()
+    {
+        _mediatorSubscription = MediatorSubscriber.Subscribe(this);
+    }
+
+    public async Task Consume(ConsumeContext<HandleExceptionCommand> context)
+    {
+        var message = context.Message;
+
+        var errorMessage = message.Exception.Message;
+        string? traceId = null;
+
+        if (message.Exception is ApiRequestException ex)
+        {
+            errorMessage = ex.ProblemDetails.Title;
+
+            if (ex.ProblemDetails.Detail is not null)
+            {
+                errorMessage += $"{Environment.NewLine}{Environment.NewLine}Details: {ex.ProblemDetails.Detail}";
+            }
+
+            if (ex.ProblemDetails.Status is not null)
+            {
+                errorMessage += $"{Environment.NewLine}{Environment.NewLine}Server status: {ex.ProblemDetails.Status}";
+            }
+
+            if (ex.ProblemDetails.Extensions.TryGetValue("traceId", out var traceIdObj))
+            {
+                traceId = traceIdObj?.ToString();
+            }
+        }
+
+        var parameters = new DialogParameters<ErrorDialog>
+        {
+            { x => x.ErrorMessage, errorMessage },
+            { x => x.TraceId, traceId }
+        };
+
+        var dialogOptions = new DialogOptions
+        {
+            DisableBackdropClick = true,
+            MaxWidth = MaxWidth.Small
+        };
+
+        if (_dialogRef is null)
+        {
+            _dialogRef = await DialogService.ShowAsync<ErrorDialog>("Error", parameters, dialogOptions);
+        }
+    }
+
+    public void Dispose()
+    {
+        _mediatorSubscription?.Dispose();
+    }
+}

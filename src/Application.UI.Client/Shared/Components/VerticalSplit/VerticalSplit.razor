@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="half @(State != SectionState.BottomFullScreen ? "expanded" : "")">
+        <div class="header" @onclick="ToggleTopSection">
+            <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                <div class="section-header-title">
+                    @TopTitle
+                </div>
+                <MudIcon Icon="@Icons.Material.Filled.ExpandMore" style="@GetIconStyle(State)"/>
+            </MudStack>
+        </div>
+        <div class="content">
+            @TopContent
+        </div>
+    </div>
+    <div class="half @(State != SectionState.TopFullScreen ? "expanded" : "")">
+        <div class="header" @onclick="ToggleBottomSection">
+            <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+                <div class="section-header-title">
+                    @BottomTitle
+                </div>
+                <MudIcon Icon="@Icons.Material.Filled.ExpandMore" style="@GetIconStyle(State)"/>
+            </MudStack>
+        </div>
+        <div class="content">
+            @BottomContent
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment TopContent { get; set; } = null!;
+    [Parameter] public RenderFragment BottomContent { get; set; } = null!;
+    [Parameter] public SectionState State { get; set; } = SectionState.Both;
+    [Parameter] public string TopTitle { get; set; } = "";
+    [Parameter] public string BottomTitle { get; set; } = "";
+
+    private void ToggleTopSection()
+    {
+        if (State is SectionState.BottomFullScreen or SectionState.Both)
+        {
+            State = SectionState.TopFullScreen;
+        }
+        else
+        {
+            State = SectionState.Both;
+        }
+    }
+
+    private string GetIconStyle(SectionState state)
+    {
+        return state switch
+        {
+            SectionState.TopFullScreen => "transition: transform 0.3s; transform: rotate(-180deg);",
+            SectionState.BottomFullScreen => "transition: transform 0.3s; transform: rotate(180deg);",
+            _ => "transition: transform 0.3s;"
+        };
+    }
+
+    private void ToggleBottomSection()
+    {
+        if (State is SectionState.TopFullScreen or SectionState.Both)
+        {
+            State = SectionState.BottomFullScreen;
+        }
+        else
+        {
+            State = SectionState.Both;
+        }
+    }
+
+}

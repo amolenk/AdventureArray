@@ -1,0 +1,74 @@
+@inject IConfiguration Configuration
+@inject IJSRuntime JSRuntime
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Error" Class="mr-3 mb-n1"/>
+            Sorry, er is een probleem opgetreden 😞
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudContainer Style="max-height: 300px; overflow-y: scroll">
+            <MudText Style="white-space: pre-wrap;">@ErrorMessage</MudText>
+        </MudContainer>
+    </DialogContent>
+    <DialogActions>
+        @if (TraceId is not null && _settings.TraceUrlFormat is not null)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.LogoDev" OnClick="@OpenTrace">Open trace</MudButton>
+        }
+        @if (_settings.ProblemReportRecipient is not null)
+        {
+            <MudButton OnClick="@ReportProblem" aria-label="error-report-button">Meld probleem</MudButton>
+        }
+        <MudButton Color="Color.Primary" OnClick="Close">Sluit</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; } = null!;
+
+
+    [Parameter] public string ErrorMessage { get; set; } = string.Empty;
+
+    [Parameter] public string? TraceId { get; set; }
+
+    private readonly ErrorDialogSettings _settings = new();
+
+    protected override void OnInitialized()
+    {
+        Configuration.GetSection(ErrorDialogSettings.ConfigurationSectionName).Bind(_settings);
+    }
+
+    private async Task OpenTrace()
+    {
+        var url = string.Format(_settings.TraceUrlFormat!, TraceId);
+
+        await JSRuntime.InvokeVoidAsync("open", url, "_blank");
+    }
+
+    private async Task ReportProblem()
+    {
+        var subject = TraceId is null ? "Probleem melding" : $"Probleem melding: {TraceId}";
+
+        var body = "%0D%0DVoeg extra informatie a.u.b. hierboven toe."
+            + "%0D----------------------------------------------------------------%0D"
+            + ErrorMessage.ReplaceLineEndings("%0D");
+
+        if (TraceId is not null)
+        {
+            body += "%0D%0DTrace ID: " + TraceId;
+        }
+
+        var url = $"mailto:{_settings.ProblemReportRecipient}?subject={subject}&body={body}";
+
+        await JSRuntime.InvokeVoidAsync("open", url);
+    }
+
+    private void Close()
+    {
+        MudDialog.Close();
+    }
+}

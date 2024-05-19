@@ -1,0 +1,48 @@
+@inject NavigationManager NavigationManager
+
+<AuthorizeView>
+    <Authorized>
+        <MudStack Spacing="0">
+            <MudStack Style="min-width: 220px;" Row="true" Class="ma-4">
+                <MudAvatar Color="Color.Secondary">
+                    @context.User.Identity?.Name?.ToUpperInvariant().First()
+                    @* @if (string.IsNullOrEmpty(UserProfile?.ProfilePictureDataUrl)) *@
+                    @* { *@
+                    @*     <MudImage>@UserProfile?.UserName?.First()</MudImage> *@
+                    @* } *@
+                    @* else *@
+                    @* { *@
+                    @*     <MudImage Src="@UserProfile?.ProfilePictureDataUrl"></MudImage> *@
+                    @* } *@
+                </MudAvatar>
+                <MudStack Justify="Justify.SpaceBetween" Spacing="0">
+                    <MudText Typo="Typo.body1">@context.User.FindFirst("Name")?.Value</MudText>
+                    <MudText Typo="Typo.body2">@context.User.FindFirst("Email")?.Value</MudText>
+                </MudStack>
+            </MudStack>
+            <MudDivider Class="my-2"/>
+            <MudStack Row="true" Justify="Justify.Center" Class="ma-4">
+                <DarkModeSwitch/>
+            </MudStack>
+            <MudDivider Class="my-2"/>
+            <div class="mt-4 mx-4">
+                <MudButton Color="Color.Default"
+                           FullWidth="true"
+                           StartIcon="@Icons.Material.Filled.Logout"
+                           Variant="Variant.Text"
+                           aria-label="logout-button"
+                           OnClick="@OnLogoutClick">
+                    Log uit
+                </MudButton>
+            </div>
+        </MudStack>
+    </Authorized>
+</AuthorizeView>
+
+@code{
+
+    private void OnLogoutClick()
+    {
+        NavigationManager.NavigateTo($"authentication/logout?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}", forceLoad: true);
+    }
+}

@@ -1,0 +1,138 @@
+@using AdventureArray.Application.UI.Model.Gebruiker
+@using AdventureArray.Application.UI.Client.Features.Gebruikersvoorkeuren.Models
+
+<CascadingValue Value="false" Name="UsePopoverProvider">
+    <MudThemeProvider @ref="_themeProvider" @bind-IsDarkMode="_isAppDarkMode" Theme="MyTheme"/>
+</CascadingValue>
+
+@code{
+
+    private MudThemeProvider _themeProvider = null!;
+
+    private bool _isAppDarkMode = false;
+    private bool _isSystemDarkMode = false;
+
+    [CascadingParameter] public Gebruikersvoorkeuren Gebruikersvoorkeuren { get; set; } = null!;
+
+    public static MudTheme MyTheme => new()
+    {
+        Palette = new PaletteLight()
+        {
+            Primary = "#F15A22",
+            Secondary = "#2b79c7",
+            Background = "#f9f6f1",
+            Error = "#FF0000",
+            TextPrimary = "#302b25",
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = "#ff8d5c",
+            Secondary = "#2b79c7",
+            Background = "#121212",
+            AppbarBackground = "#282828",
+            DrawerBackground = "#282828",
+            Surface = "#3c3c3c",
+            Error = "#FF0000",
+            TextPrimary = "#CCC",
+            DrawerText = "#CCC",
+        },
+        Typography = new Typography()
+        {
+            Default = new Default()
+            {
+                FontFamily = ["Open Sans", "sans-serif"],
+                FontSize = "1rem",
+                FontWeight = 400,
+                LineHeight = 1.75,
+                LetterSpacing = "0.2px",
+            },
+
+            Button = new Button()
+            {
+                FontFamily = ["Booster Next FY Bold", "Open Sans", "sans-serif"]
+            },
+
+            H1 = new H1()
+            {
+                FontFamily = ["Booster Next FY Bold", "Open Sans", "sans-serif"],
+                FontSize = "2.5rem",
+                FontWeight = 400,
+                LineHeight = 1.75,
+            },
+            H2 = new H2()
+            {
+                FontFamily = ["Booster Next FY Bold", "Open Sans", "sans-serif"],
+                FontSize = "2rem",
+                FontWeight = 400,
+                LineHeight = 1.75,
+            },
+            H3 = new H3()
+            {
+                FontFamily = ["Booster Next FY Bold", "Open Sans", "sans-serif"],
+                FontSize = "1.75rem",
+                FontWeight = 400,
+                LineHeight = 1.75,
+            },
+            H4 = new H4()
+            {
+                FontSize = "1.5rem",
+                FontWeight = 700,
+                LineHeight = 1.75,
+            },
+            H5 = new H5()
+            {
+                FontSize = "1.25rem",
+                FontWeight = 700,
+                LineHeight = 1.25,
+            },
+            H6 = new H6()
+            {
+                FontSize = "1rem",
+                FontWeight = 700,
+                LineHeight = 1.25,
+            },
+        },
+        LayoutProperties = new LayoutProperties()
+        {
+            DefaultBorderRadius = "6px",
+        },
+    };
+
+    protected override void OnParametersSet()
+    {
+        switch (Gebruikersvoorkeuren.DarkMode)
+        {
+            case DarkModeSetting.Light:
+                _isAppDarkMode = false;
+                break;
+            case DarkModeSetting.Dark:
+                _isAppDarkMode = true;
+                break;
+            case DarkModeSetting.Auto:
+            default:
+                _isAppDarkMode = _isSystemDarkMode;
+                break;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Get- and WatchSystemPreference both require JavaScript and can only be run after rendering.
+            _isSystemDarkMode = await _themeProvider.GetSystemPreference();
+            await _themeProvider.WatchSystemPreference(OnSystemPreferenceChanged);
+        }
+    }
+
+    private async Task OnSystemPreferenceChanged(bool newValue)
+    {
+        _isSystemDarkMode = newValue;
+        if (Gebruikersvoorkeuren.DarkMode == DarkModeSetting.Auto)
+        {
+            _isAppDarkMode = _isSystemDarkMode;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+}

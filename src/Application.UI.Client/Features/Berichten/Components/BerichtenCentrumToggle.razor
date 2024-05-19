@@ -1,0 +1,36 @@
+@using System.Collections.Specialized
+@using AdventureArray.Application.UI.Client.Infrastructure.Berichten
+@implements IDisposable
+@inject IBerichtenManager BerichtenManager
+
+<MudIconButton
+    Icon="@(_ongelezenMeldingen ? Icons.Material.Filled.NotificationsActive : Icons.Material.Filled.Notifications)"
+    Color="Color.Inherit"
+    Edge="Edge.End"
+    OnClick="@OnClick"/>
+
+@code {
+
+    private bool _ongelezenMeldingen = false;
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    protected override void OnInitialized()
+    {
+        BerichtenManager.Berichten.CollectionChanged += BerichtenManager_BerichtenChanged;
+    }
+
+    private void BerichtenManager_BerichtenChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        // TODO Verbeter logica hier
+        _ongelezenMeldingen = BerichtenManager.Berichten.Any();
+
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        BerichtenManager.Berichten.CollectionChanged -= BerichtenManager_BerichtenChanged;
+    }
+}

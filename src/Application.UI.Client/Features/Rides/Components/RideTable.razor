@@ -1,0 +1,31 @@
+@using AdventureArray.Application.UI.Model.Rides
+
+<MudTable Class="full-height" Items="@Rides" Hover="true" Virtualize="true" FixedHeader="true" Elevation="0"
+          Breakpoint="Breakpoint.Sm" Loading="@Loading" LoadingProgressColor="Color.Info" Height="100%">
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Type</MudTh>
+        <MudTh>Location</MudTh>
+	    <MudTh>Wait time (min)</MudTh>
+	    <MudTh>Wait time updated</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Type">@context.Type</MudTd>
+        <MudTd DataLabel="Location">@context.Location</MudTd>
+	    <MudTd DataLabel="Wait time (min)">@context.WaitTimeMinutes</MudTd>
+	    <MudTd DataLabel="Wait time updated">@context.WaitTimeUpdated</MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText>No data available</MudText>
+    </NoRecordsContent>
+</MudTable>
+
+@code {
+
+	[Parameter]
+    public ICollection<Ride> Rides { get; set; } = [];
+
+	[Parameter]
+    public bool Loading { get; set; }
+}

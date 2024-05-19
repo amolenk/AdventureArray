@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+		<RootNamespace>AdventureArray.Infrastructure.AppHost</RootNamespace>
+		<OutputType>Exe</OutputType>
+        <IsAspireHost>true</IsAspireHost>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.Hosting.AppHost" Version="8.0.0-preview.7.24251.11" />
+        <PackageReference Include="Aspire.Hosting.Kafka" Version="8.0.0-preview.7.24251.11" />
+        <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.0.0-preview.7.24251.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Application.MigrationService\Application.MigrationService.csproj" />
+      <ProjectReference Include="..\Application.RideService\Application.RideService.csproj" />
+      <ProjectReference Include="..\Application.Simulator\Application.Simulator.csproj" />
+      <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" IsAspireProjectResource="false" />
+    </ItemGroup>
+
+</Project>

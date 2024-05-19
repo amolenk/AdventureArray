@@ -1,0 +1,63 @@
+@using AdventureArray.Application.UI.Client.Infrastructure.Berichten
+@using System.ComponentModel
+@implements IDisposable
+
+<MudListItem>
+    <MudStack>
+        <MudStack Row="true" AlignItems="AlignItems.Center">
+            <MudIcon Icon="@Icon"/>
+            <MudText Typo="Typo.body1">@Bericht.Titel</MudText>
+            <MudSpacer/>
+            <MudIcon Icon="@Icons.Material.Filled.Close"/>
+        </MudStack>
+        <MudText Typo="Typo.body2">@Bericht.Details</MudText>
+        @if (!Bericht.IsAfgerond)
+        {
+            if (Bericht.Voortgang is < 1)
+            {
+                <MudProgressLinear aria-label="percentage-progress-bar" Color="Color.Primary" Rounded="true" Value="@Bericht.Voortgang.Value" Min="0" Max="1" Class="my-7" />
+            }
+            else
+            {
+                <MudProgressLinear aria-label="indeterminate-progress-bar" Color="Color.Primary" Rounded="true" Indeterminate="true" Class="my-7" />
+            }
+        }
+        <MudText Typo="Typo.caption" Class="mb-1">
+            @Bericht.Tijdstip
+        </MudText>
+    </MudStack>
+</MudListItem>
+
+@code {
+
+    [Parameter]
+    public Bericht Bericht { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback ComponentDataUpdated { get; set; }
+
+    private string Icon => Bericht.Ernst switch
+    {
+        Severity.Normal => Icons.Material.Outlined.EventNote,
+        Severity.Info => Icons.Material.Outlined.Info,
+        Severity.Success => Icons.Custom.Uncategorized.AlertSuccess,
+        Severity.Warning => Icons.Material.Outlined.ReportProblem,
+        Severity.Error => Icons.Material.Filled.ErrorOutline,
+        _ => throw new ArgumentOutOfRangeException(nameof(Bericht.Ernst)),
+    };
+
+    protected override void OnInitialized()
+    {
+        Bericht.PropertyChanged += OnPropertyChanged;
+    }
+
+    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        ComponentDataUpdated.InvokeAsync();
+    }
+
+    public void Dispose()
+    {
+        Bericht.PropertyChanged -= OnPropertyChanged;
+    }
+}

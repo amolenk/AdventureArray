@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+}
+
+.half {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: max-height 0.3s ease-in-out;
+    max-height: 0;
+    height: 100%;
+}
+
+.half.expanded {
+    max-height: 100%;
+}
+
+.content {
+    flex: 1;
+    overflow: auto;
+    padding: .5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.header {
+    cursor: pointer;
+    padding: .5rem;
+}
+
+.section-header-title {
+    font-family: "Booster Next FY Semibold", "Open Sans", "sans-serif";
+    line-height: 1.25rem;
+}

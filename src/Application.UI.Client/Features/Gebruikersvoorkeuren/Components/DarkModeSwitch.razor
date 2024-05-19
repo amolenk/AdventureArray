@@ -1,0 +1,43 @@
+@using AdventureArray.Application.UI.Model.Gebruiker
+@using AdventureArray.Application.UI.Client.Features.Gebruikersvoorkeuren.Models
+@inject IMediator Mediator
+
+<MudButtonGroup OverrideStyles="false">
+    <MudIconButton Class="ma-auto"
+                   aria-label="darkmode-auto-button"
+                   Color="Color.Primary"
+                   Icon="@Icons.Material.Filled.AutoMode"
+                   OnClick="@Auto"
+                   Variant="@GetButtonVariant(DarkModeSetting.Auto)"/>
+    <MudIconButton Class="ma-auto"
+                   aria-label="darkmode-light-button"
+                   Icon="@Icons.Material.Filled.LightMode"
+                   Color="Color.Primary"
+                   OnClick="@Light"
+                   Variant="@GetButtonVariant(DarkModeSetting.Light)"/>
+    <MudIconButton Class="ma-auto"
+                   aria-label="darkmode-dark-button"
+                   Icon="@Icons.Material.Filled.DarkMode"
+                   Color="Color.Primary"
+                   OnClick="@Dark"
+                   Variant="@GetButtonVariant(DarkModeSetting.Dark)"/>
+</MudButtonGroup>
+
+@code {
+
+    private Task Auto() => ChangeDarkModeAsync(DarkModeSetting.Auto);
+    private Task Light() => ChangeDarkModeAsync(DarkModeSetting.Light);
+    private Task Dark() => ChangeDarkModeAsync(DarkModeSetting.Dark);
+
+    [CascadingParameter] public Gebruikersvoorkeuren Gebruikersvoorkeuren { get; set; } = null!;
+
+    private Variant GetButtonVariant(DarkModeSetting mode)
+    {
+        return Gebruikersvoorkeuren.DarkMode == mode ? Variant.Filled : Variant.Outlined;
+    }
+
+    private Task ChangeDarkModeAsync(DarkModeSetting mode)
+    {
+        return Mediator.Send(new GebruikersvoorkeurenProvider.UpdateGebruikersvoorkeurenUICommand(mode));
+    }
+}

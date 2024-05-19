@@ -1,0 +1,21 @@
+﻿@inject ISnackbar Snackbar
+
+<MudPopoverProvider />
+<MudDialogProvider
+    CloseOnEscapeKey="true"
+    DisableBackdropClick="true"
+    FullWidth="true"
+    MaxWidth="MaxWidth.Large"
+    Position="DialogPosition.Center"/>
+<MudSnackbarProvider />
+
+@code {
+    protected override void OnInitialized()
+    {
+        Snackbar.Clear();
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomRight;
+        Snackbar.Configuration.MaxDisplayedSnackbars = 5;
+        Snackbar.Configuration.SnackbarVariant = Variant.Text;
+        Snackbar.Configuration.PreventDuplicates = true;
+    }
+}

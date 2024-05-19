@@ -1,0 +1,23 @@
+<MudTextField
+	T="DateTime?"
+	Value="@Value"
+	Variant="Variant.Outlined"
+	Format="s"
+	ValueChanged="@HandleDateTimeValueChanged"
+	Label="@Label"
+	InputType="InputType.DateTimeLocal">
+</MudTextField>
+
+@code {
+	[Parameter] public DateTime? Value { get; set; }
+	[Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
+	[Parameter] public string? Label { get; set; }
+
+	private void HandleDateTimeValueChanged(DateTime? date)
+	{
+		if (date.HasValue)
+		{
+			ValueChanged.InvokeAsync(date.Value);
+		}
+	}
+}
