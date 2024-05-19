@@ -13,8 +13,6 @@ public static class KafkaBuilderExtensions
     /// <returns>A reference to the <see cref="IResourceBuilder{T}"/>.</returns>
     public static IResourceBuilder<T> WithTopic<T>(this IResourceBuilder<T> builder, string topicName, int partitionCount = 1) where T : KafkaServerResource
     {
-	    Console.WriteLine("Adding Kafka topic annotation.");
-
 	    builder.WithAnnotation(new KafkaTopicAnnotation
 	    {
 		    TopicName = topicName,
