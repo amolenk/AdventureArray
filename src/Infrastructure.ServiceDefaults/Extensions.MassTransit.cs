@@ -2,6 +2,7 @@ using AdventureArray.Infrastructure.Features;
 using AdventureArray.Infrastructure.Messaging.Configuration;
 using AdventureArray.Infrastructure.Messaging.RetryPolicies;
 using AdventureArray.Infrastructure.Messaging.Topology;
+using Azure.Identity;
 using Confluent.Kafka;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -94,14 +95,35 @@ public static partial class Extensions
 	private static void AddDefaultMassTransitRider(IHostApplicationBuilder builder, IBusRegistrationConfigurator bus,
 		FeatureRegistry featureRegistry)
 	{
+		var eventHubsConnectionString = builder.Configuration.GetConnectionString("event-hubs");
+		if (eventHubsConnectionString is not null)
+		{
+			bus.AddRider(rider =>
+			{
+				featureRegistry.ConfigureRider(rider, builder.Configuration);
+
+				rider.UsingKafka((context, k) =>
+				{
+					k.Host([eventHubsConnectionString], configureKafkaHost =>
+					{
+						configureKafkaHost.UseSasl(sasl =>
+						{
+							sasl.Mechanism = SaslMechanism.Plain;
+							sasl.SecurityProtocol = SecurityProtocol.SaslSsl;
+							sasl.Username = "$ConnectionString";
+							sasl.Password = eventHubsConnectionString;
+						});
+					});
+
+					featureRegistry.ConfigureRiderEndpoints(context, k);
+				});
+			});
+
+			return;
+		}
+
 		var kafkaConnectionString = builder.Configuration.GetConnectionString("kafka");
 		if (kafkaConnectionString is null) return;
-
-		// var kafkaSection = builder.Configuration.GetSection("Kafka");
-		// if (!kafkaSection.Exists()) return;
-		//
-		// KafkaSettings kafkaSettings = new();
-		// kafkaSection.Bind(kafkaSettings);
 
 		bus.AddRider(rider =>
 		{
@@ -109,22 +131,29 @@ public static partial class Extensions
 
 			rider.UsingKafka((context, k) =>
 			{
-				k.Host([kafkaConnectionString], configureKafkaHost =>
-				{
-					// // var saslUsername = kafkaSettings.SaslUsername;
-					// // if (saslUsername is null) return;
-					// //
-					// configureKafkaHost.UseSasl(sasl =>
-					// {
-					// 	sasl.Mechanism = SaslMechanism.Plain;
-					// 	sasl.SecurityProtocol = SecurityProtocol.SaslSsl;
-					// 	// sasl.Username = saslUsername;
-					// 	// sasl.Password = kafkaSettings.SaslPassword;
-					// });
-				});
+				k.Host([kafkaConnectionString]);
 
 				featureRegistry.ConfigureRiderEndpoints(context, k);
 			});
 		});
+	}
+}
+
+class ManagedIdentityTokenProvider
+{
+	private readonly DefaultAzureCredential _credential;
+
+	public ManagedIdentityTokenProvider()
+	{
+		_credential = new DefaultAzureCredential();
+	}
+
+	public async Task<string> GetTokenAsync(string broker, CancellationToken cancellationToken)
+	{
+		var accessToken = await _credential.GetTokenAsync(
+			new Azure.Core.TokenRequestContext(new[] { "https://kafka.azure.net/.default" }),
+			cancellationToken);
+
+		return accessToken.Token;
 	}
 }
