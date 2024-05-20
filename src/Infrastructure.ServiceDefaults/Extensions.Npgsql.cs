@@ -15,7 +15,7 @@ public static partial class Extensions
 		// Automatic registration of a pooled DbContext as a scoped service (opinionated defaults).
 		//builder.AddNpgsqlDbContext<ApplicationDbContext>("citus");
 
-		var connectionString = builder.Configuration.GetConnectionString("citus")
+		var connectionString = builder.Configuration.GetConnectionString("postgres")
 		                       ?? throw new InvalidOperationException("Connection string is not configured.");
 
 		// Register the DbContextFactory as a singleton service.
