@@ -67,9 +67,9 @@ public class Worker(IServiceProvider serviceProvider, IHostApplicationLifetime h
     {
 	    Ride[] rides =
 	    [
-		    new Ride(0, "Ride 1", RideType.Carousel, 100, 5, 180, "Location"),
-		    new Ride(0, "Ride 2", RideType.Carousel, 100, 5, 180, "Location"),
-		    new Ride(0, "Ride 3", RideType.Carousel, 100, 5, 180, "Location")
+		    new Ride(1, "Ride 1", RideType.Carousel, 100, 5, 180, "Location"),
+		    new Ride(2, "Ride 2", RideType.Carousel, 100, 5, 180, "Location"),
+		    new Ride(3, "Ride 3", RideType.Carousel, 100, 5, 180, "Location")
 	    ];
 
         var strategy = dbContext.Database.CreateExecutionStrategy();
