@@ -8,7 +8,8 @@
 		<ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
 		<AnalysisLevel>latest-Recommended</AnalysisLevel>
 		<NoWarn>CA1200;CA1711;CA1716;CA1848</NoWarn>
-		<MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
+		<!-- Can't set MSBuildTreatWarningsAsErrors until https://github.com/dotnet/aspire/issues/4231 is fixed -->
+<!--		<MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>-->
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<NuGetAuditMode>all</NuGetAuditMode>
 		<NuGetAuditLevel>low</NuGetAuditLevel>
