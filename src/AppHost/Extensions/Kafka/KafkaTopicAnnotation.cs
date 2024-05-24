@@ -1,4 +1,4 @@
-namespace AdventureArray.Infrastructure.AppHost.Kafka;
+namespace AdventureArray.Infrastructure.AppHost.Extensions.Kafka;
 
 public class KafkaTopicAnnotation : IResourceAnnotation
 {

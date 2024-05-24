@@ -4,7 +4,7 @@ using Confluent.Kafka;
 using Confluent.Kafka.Admin;
 using Microsoft.Extensions.Logging;
 
-namespace AdventureArray.Infrastructure.AppHost.Kafka;
+namespace AdventureArray.Infrastructure.AppHost.Extensions.Kafka;
 
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 internal sealed class KafkaTopicCreatorHook : IDistributedApplicationLifecycleHook

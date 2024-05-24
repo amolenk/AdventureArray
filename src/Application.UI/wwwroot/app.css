@@ -3,10 +3,6 @@
 	font-size: 14px;
 }
 
-.mdl-gradient-background {
-	background: var(--background-gradient);
-}
-
 .selected {
 	background-color: var(--mud-palette-secondary-hover);
 }

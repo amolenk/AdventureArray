@@ -12,8 +12,8 @@ public static partial class Extensions
 	{
 		ArgumentNullException.ThrowIfNull(builder);
 
-		// Automatic registration of a pooled DbContext as a scoped service (opinionated defaults).
-		//builder.AddNpgsqlDbContext<ApplicationDbContext>("citus");
+		// // Automatic registration of a pooled DbContext as a scoped service (opinionated defaults).
+		// builder.AddNpgsqlDbContext<ApplicationDbContext>("postgres");
 
 		var connectionString = builder.Configuration.GetConnectionString("postgres")
 		                       ?? throw new InvalidOperationException("Connection string is not configured.");

@@ -1,5 +1,7 @@
 using System.Reflection;
+using AdventureArray.Infrastructure.Observability;
 using AdventureArray.Infrastructure.Persistence;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +33,7 @@ public static partial class Extensions
             http.AddServiceDiscovery();
         });
 
+        // Custom extensions
         builder.AddDefaultFeatures(Assembly.GetCallingAssembly());
 		builder.AddDefaultNpgsql();
         builder.AddDefaultMassTransit();
@@ -55,10 +58,10 @@ public static partial class Extensions
             })
             .WithTracing(tracing =>
             {
-                tracing.AddAspNetCoreInstrumentation()
-                    // Uncomment the following line to enable gRPC instrumentation (requires the OpenTelemetry.Instrumentation.GrpcNetClient package)
-                    //.AddGrpcClientInstrumentation()
-                    .AddHttpClientInstrumentation();
+	            tracing.AddAspNetCoreInstrumentation()
+		            .AddGrpcClientInstrumentation() // For Dapr sidecar calls
+		            .AddHttpClientInstrumentation()
+		            .AddSource(ApplicationActivitySource.Name);
             });
 
         builder.AddOpenTelemetryExporters();
@@ -80,11 +83,11 @@ public static partial class Extensions
         //    .WithMetrics(metrics => metrics.AddPrometheusExporter());
 
         // Uncomment the following lines to enable the Azure Monitor exporter (requires the Azure.Monitor.OpenTelemetry.AspNetCore package)
-        //if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]))
-        //{
-        //    builder.Services.AddOpenTelemetry()
-        //       .UseAzureMonitor();
-        //}
+        // if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]))
+        // {
+        //     builder.Services.AddOpenTelemetry()
+        //        .UseAzureMonitor();
+        // }
 
         return builder;
     }
@@ -98,7 +101,7 @@ public static partial class Extensions
         return builder;
     }
 
-    public static WebApplication MapDefaultEndpoints(this WebApplication app)
+    public static WebApplication MapDefaultEndpoints(this WebApplication app, bool authorizeApi = true)
     {
         // Uncomment the following line to enable the Prometheus endpoint (requires the OpenTelemetry.Exporter.Prometheus.AspNetCore package)
         // app.MapPrometheusScrapingEndpoint();
@@ -117,7 +120,7 @@ public static partial class Extensions
             });
         }
 
-        app.MapFeatureEndpoints();
+        app.MapFeatureEndpoints(authorizeApi);
 
         return app;
     }

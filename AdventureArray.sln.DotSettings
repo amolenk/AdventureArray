@@ -1,0 +1,138 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=20F927C5565C67409CF8757DE37C05FB/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=20F927C5565C67409CF8757DE37C05FB/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=20F927C5565C67409CF8757DE37C05FB/Reformat/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=20F927C5565C67409CF8757DE37C05FB/Shortcut/@EntryValue">__pg_connection_string</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=20F927C5565C67409CF8757DE37C05FB/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=20F927C5565C67409CF8757DE37C05FB/Text/@EntryValue">		var connectionString = builder.Configuration.GetConnectionString("postgres")
+		                       ?? throw new InvalidOperationException("Connection string is not configured.");</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=20F927C5565C67409CF8757DE37C05FB/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=20F927C5565C67409CF8757DE37C05FB/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=20F927C5565C67409CF8757DE37C05FB/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=37155E58BA356F49BCCB96E98C49BA23/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=37155E58BA356F49BCCB96E98C49BA23/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=37155E58BA356F49BCCB96E98C49BA23/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=37155E58BA356F49BCCB96E98C49BA23/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=37155E58BA356F49BCCB96E98C49BA23/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=37155E58BA356F49BCCB96E98C49BA23/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=37155E58BA356F49BCCB96E98C49BA23/Shortcut/@EntryValue">__pg_cosmos</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=37155E58BA356F49BCCB96E98C49BA23/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=37155E58BA356F49BCCB96E98C49BA23/Text/@EntryValue">IResourceBuilder&lt;IResourceWithConnectionString&gt; postgres = builder.ExecutionContext.IsPublishMode
+	? builder.AddAzureCosmosDBPostgres("postgres")
+	: builder.AddPostgres("postgres")
+		.WithImage("jwhiteatdocker/citus", "12.0.0-pg14")
+		.WithPgAdmin();
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3DF379604342A34FBC614862362D1148/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3DF379604342A34FBC614862362D1148/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3DF379604342A34FBC614862362D1148/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3DF379604342A34FBC614862362D1148/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3DF379604342A34FBC614862362D1148/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3DF379604342A34FBC614862362D1148/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3DF379604342A34FBC614862362D1148/Shortcut/@EntryValue">__pg_enrich</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3DF379604342A34FBC614862362D1148/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3DF379604342A34FBC614862362D1148/Text/@EntryValue">		// Instrumentation using Aspire settings is added to the DbContext, including retries and timeouts.
+		builder.EnrichNpgsqlDbContext&lt;ApplicationDbContext&gt;();</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=60B37C930239D04EB90614EA56D3DC30/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=60B37C930239D04EB90614EA56D3DC30/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=60B37C930239D04EB90614EA56D3DC30/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=60B37C930239D04EB90614EA56D3DC30/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=60B37C930239D04EB90614EA56D3DC30/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=60B37C930239D04EB90614EA56D3DC30/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=60B37C930239D04EB90614EA56D3DC30/Shortcut/@EntryValue">__pg_contextfactory</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=60B37C930239D04EB90614EA56D3DC30/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=60B37C930239D04EB90614EA56D3DC30/Text/@EntryValue">		// Register the DbContextFactory as a singleton service.
+		builder.Services.AddDbContextFactory&lt;ApplicationDbContext&gt;((_, options) =&gt; options
+			.UseNpgsql(connectionString));</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5D413F1C6C7A34FAFE3B0F70FF10652/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5D413F1C6C7A34FAFE3B0F70FF10652/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5D413F1C6C7A34FAFE3B0F70FF10652/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5D413F1C6C7A34FAFE3B0F70FF10652/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5D413F1C6C7A34FAFE3B0F70FF10652/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5D413F1C6C7A34FAFE3B0F70FF10652/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5D413F1C6C7A34FAFE3B0F70FF10652/Shortcut/@EntryValue">__kafka_event_hubs</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5D413F1C6C7A34FAFE3B0F70FF10652/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A5D413F1C6C7A34FAFE3B0F70FF10652/Text/@EntryValue">IResourceBuilder&lt;IResourceWithConnectionString&gt; kafka = builder.ExecutionContext.IsPublishMode
+	? builder.AddAzureEventHubs("event-hubs").AddEventHub("wait_times")
+	: builder.AddKafka("kafka").AddTopic("wait_times", 2);</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC2E8A9D0E413E4D87EFF4AC13677939/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC2E8A9D0E413E4D87EFF4AC13677939/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC2E8A9D0E413E4D87EFF4AC13677939/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC2E8A9D0E413E4D87EFF4AC13677939/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC2E8A9D0E413E4D87EFF4AC13677939/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC2E8A9D0E413E4D87EFF4AC13677939/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC2E8A9D0E413E4D87EFF4AC13677939/Shortcut/@EntryValue">__dapr_handler</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC2E8A9D0E413E4D87EFF4AC13677939/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AC2E8A9D0E413E4D87EFF4AC13677939/Text/@EntryValue">[SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+public class SimulateWaitTimesHandler : IConsumer&lt;SimulateWaitTimesCommand&gt;
+{
+	private readonly DaprClient _daprClient;
+	private readonly ApplicationDbContext _dbContext;
+	private readonly ITopicProducer&lt;string, WaitTimeMessage&gt; _topicProducer;
+	private readonly SimulateWaitTimesMetrics _metrics;
+	private readonly ILogger _logger;
+
+	public SimulateWaitTimesHandler(DaprClient daprClient, ApplicationDbContext dbContext,
+		ITopicProducer&lt;string, WaitTimeMessage&gt; topicProducer, SimulateWaitTimesMetrics metrics,
+		ILogger&lt;SimulateWaitTimesWorker&gt; logger)
+	{
+		ArgumentNullException.ThrowIfNull(daprClient);
+		ArgumentNullException.ThrowIfNull(dbContext);
+		ArgumentNullException.ThrowIfNull(topicProducer);
+		ArgumentNullException.ThrowIfNull(metrics);
+		ArgumentNullException.ThrowIfNull(logger);
+
+		_daprClient = daprClient;
+		_dbContext = dbContext;
+		_topicProducer = topicProducer;
+		_metrics = metrics;
+		_logger = logger;
+	}
+
+	public async Task Consume(ConsumeContext&lt;SimulateWaitTimesCommand&gt; context)
+	{
+		var rideIds = await GetRideIdsAsync();
+		var random = new Random();
+		var count = 0;
+
+		foreach (var rideId in rideIds)
+		{
+			var key = rideId.ToString(CultureInfo.InvariantCulture);
+
+			await _topicProducer.Produce(key, new WaitTimeMessage
+			{
+				RideId = rideId,
+				WaitTimeMinutes = random.Next(1, 60),
+				Timestamp = DateTime.UtcNow
+			}, context.CancellationToken);
+
+			count++;
+		}
+
+		_logger.LogInformation("Sent wait time updates for {Count} rides.", count);
+		_metrics.WaitTimesGenerated.Add(count);
+	}
+
+	private async Task&lt;int[]&gt; GetRideIdsAsync()
+	{
+		const string stateStoreName = "statestore";
+		const string stateKey = "rides";
+
+		// Try to get the ride IDs from the state store.
+		var rideIds = await _daprClient.GetStateAsync&lt;int[]&gt;(stateStoreName, stateKey);
+		if (rideIds is not null) return rideIds;
+
+		// If the ride IDs are not in the state store, get them from the database.
+		rideIds = await _dbContext.Rides.AsNoTracking().Select(r =&gt; r.Id).ToArrayAsync();
+
+		// Save the ride IDs to the state store.
+		var metadata = new Dictionary&lt;string, string&gt;
+		{
+			{ "ttlInSeconds", "300" }
+		};
+		//
+		await _daprClient.SaveStateAsync(stateStoreName, stateKey, rideIds, metadata: metadata);
+
+		return rideIds;
+	}
+}</s:String></wpf:ResourceDictionary>

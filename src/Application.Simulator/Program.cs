@@ -1,8 +1,11 @@
 using AdventureArray.Infrastructure.ServiceDefaults;
+using Confluent.Kafka;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+
+builder.Services.AddDaprClient();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -20,10 +23,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/ping", () => $"Hello from {Environment.GetEnvironmentVariable("ASPNETCORE_URLS")}!")
-	.WithName("Ping")
-	.WithOpenApi();
-
-app.MapDefaultEndpoints();
+app.MapDefaultEndpoints(authorizeApi: false);
 
 app.Run();

@@ -5,6 +5,8 @@ using AdventureArray.Infrastructure.Messaging.Topology;
 using Azure.Identity;
 using Confluent.Kafka;
 using MassTransit;
+using MassTransit.Logging;
+using MassTransit.Monitoring;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,14 +40,16 @@ public static partial class Extensions
 			featureRegistry.ConfigureMediator(cfg);
 		});
 
-		// builder.Services.AddOptions<MassTransitHostOptions>()
-		// 	.Configure(options =>
-		// 	{
-		// 		// if specified, waits until the bus is started before
-		// 		// returning from IHostedService.StartAsync
-		// 		// default is false
-		// 		options.WaitUntilStarted = true;
-		// 	});
+		builder.Services.AddOptions<MassTransitHostOptions>()
+			.Configure(options =>
+			{
+				// if specified, waits until the bus is started before
+				// returning from IHostedService.StartAsync
+				// default is false
+				options.WaitUntilStarted = true;
+			});
+
+		ConfigureInstrumentation(builder);
 	}
 
 	private static void AddDefaultMassTransitBus(IHostApplicationBuilder builder, IBusRegistrationConfigurator bus,
@@ -137,23 +141,17 @@ public static partial class Extensions
 			});
 		});
 	}
-}
 
-class ManagedIdentityTokenProvider
-{
-	private readonly DefaultAzureCredential _credential;
-
-	public ManagedIdentityTokenProvider()
+	private static void ConfigureInstrumentation(IHostApplicationBuilder builder)
 	{
-		_credential = new DefaultAzureCredential();
-	}
-
-	public async Task<string> GetTokenAsync(string broker, CancellationToken cancellationToken)
-	{
-		var accessToken = await _credential.GetTokenAsync(
-			new Azure.Core.TokenRequestContext(new[] { "https://kafka.azure.net/.default" }),
-			cancellationToken);
-
-		return accessToken.Token;
+		builder.Services.AddOpenTelemetry()
+			.WithTracing(tracerProviderBuilder =>
+			{
+				tracerProviderBuilder.AddSource(DiagnosticHeaders.DefaultListenerName);
+			})
+			.WithMetrics(meterProviderBuilder =>
+			{
+				meterProviderBuilder.AddMeter(InstrumentationOptions.MeterName);
+			});
 	}
 }

@@ -1,5 +1,6 @@
 using System.Text.Encodings.Web;
 using AdventureArray.Application.UI.Client;
+using AdventureArray.Application.UI.Features.Simulation;
 using AdventureArray.Application.UI.Infrastructure.ClientNotifications.Extensions;
 using AdventureArray.Application.UI.Infrastructure.Identity.Extensions;
 using AdventureArray.Application.UI.Model;
@@ -34,6 +35,11 @@ if (!builder.Environment.IsDevelopment())
 		opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(["application/octet-stream"]);
 	});
 }
+
+builder.Services.AddHttpClient<SimulatorServiceClient>(client =>
+{
+	client.BaseAddress = new Uri("http://simulator");
+});
 
 var app = builder.Build();
 

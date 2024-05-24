@@ -1,0 +1,67 @@
+@page "/simulator"
+@using AdventureArray.Application.UI.Client.Features.Simulation.Services
+@inject ISimulationApiService SimulationApi
+
+<PageTitle>Simulator</PageTitle>
+
+<MudText Typo="Typo.h3" Class="mb-4">Demo</MudText>
+
+@if (!_isLoading)
+{
+	<MudPaper Class="pa-16 ma-2">
+		@if (_isRunning)
+		{
+			<MudText Typo="Typo.h4" Class="mb-4">
+				<MudIcon Icon="@Icons.Material.Filled.PlayArrow" Color="Color.Success"/>
+				Simulator is running
+			</MudText>
+			<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="StopSimulator">Stop</MudButton>
+		}
+		else
+		{
+			<MudText Typo="Typo.h4" Class="mb-4">
+				<MudIcon Icon="@Icons.Material.Filled.Stop" Color="Color.Warning"/>
+				Simulator has stopped
+			</MudText>
+			<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="StartSimulator">Start</MudButton>
+		}
+
+	</MudPaper>
+}
+
+@code {
+
+	private bool _isLoading;
+	private bool _isRunning;
+
+	protected override async Task OnInitializedAsync()
+	{
+		try
+		{
+			_isLoading = true;
+
+			await GetSimulatorStatus();
+		}
+		finally
+		{
+			_isLoading = false;
+		}
+	}
+
+	private async Task GetSimulatorStatus()
+	{
+		_isRunning = await SimulationApi.GetSimulatorStatusAsync();
+	}
+
+	private async Task StartSimulator()
+	{
+		await SimulationApi.StartSimulatorAsync();
+		_isRunning = true;
+	}
+
+	private async Task StopSimulator()
+	{
+		await SimulationApi.StopSimulatorAsync();
+		_isRunning = false;
+	}
+}

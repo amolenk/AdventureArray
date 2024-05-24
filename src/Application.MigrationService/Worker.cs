@@ -67,9 +67,10 @@ public class Worker(IServiceProvider serviceProvider, IHostApplicationLifetime h
     {
 	    Ride[] rides =
 	    [
-		    new Ride(1, "Ride 1", RideType.Carousel, 100, 5, 180, "Location"),
-		    new Ride(2, "Ride 2", RideType.Carousel, 100, 5, 180, "Location"),
-		    new Ride(3, "Ride 3", RideType.Carousel, 100, 5, 180, "Location")
+		    new Ride(1, "Big Whoop Pirate Adventure", RideType.DarkRide, 24, 8, 110, "Binary Bay"),
+		    new Ride(2, "Data Stream Rapids", RideType.WaterRide, 12, 10, 120, "Cache Cove"),
+		    new Ride(3, "Quantum Leap Simulator", RideType.SimulatedRide, 30, 4, 140, "Quantum Quadrant"),
+		    new Ride(4, "Debug Maze", RideType.KiddieRide, 100, 7, 0, "Hello World")
 	    ];
 
         var strategy = dbContext.Database.CreateExecutionStrategy();
@@ -77,8 +78,11 @@ public class Worker(IServiceProvider serviceProvider, IHostApplicationLifetime h
         {
             // Seed the database
             await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
-            await dbContext.Rides.AddRangeAsync(rides, cancellationToken);
-            await dbContext.SaveChangesAsync(cancellationToken);
+            if (!await dbContext.Rides.AnyAsync(cancellationToken))
+            {
+	            await dbContext.Rides.AddRangeAsync(rides, cancellationToken);
+	            await dbContext.SaveChangesAsync(cancellationToken);
+            }
             await transaction.CommitAsync(cancellationToken);
         });
     }

@@ -20,6 +20,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapDefaultEndpoints();
+app.MapDefaultEndpoints(authorizeApi: false);
 
 app.Run();

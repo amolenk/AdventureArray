@@ -5,6 +5,7 @@
 	</PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Dapr.AspNetCore" Version="1.13.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>

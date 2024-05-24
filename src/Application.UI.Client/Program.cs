@@ -11,6 +11,7 @@ using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
+
 builder.AddCustomMassTransitMediator();
 
 // Register a logger to process unhandled exceptions.

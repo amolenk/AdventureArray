@@ -35,6 +35,12 @@ public class StoreWaitTimesHandler : IConsumer<Batch<WaitTimeMessage>>
 
 	public async Task Consume(ConsumeContext<Batch<WaitTimeMessage>> context)
 	{
+		if (context.Message.Length == 0)
+		{
+			_logger.LogInformation("No wait times to store.");
+			return;
+		}
+
 		foreach (var item in context.Message)
 		{
 			var ride = await _dbContext.Rides.FindAsync(item.Message.RideId);

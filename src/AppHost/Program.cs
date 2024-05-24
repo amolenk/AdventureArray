@@ -1,29 +1,31 @@
-using AdventureArray.Infrastructure.AppHost.Kafka;
+using AdventureArray.Infrastructure.AppHost.Extensions.AzureCosmosDBPostgres;
+using AdventureArray.Infrastructure.AppHost.Extensions.Kafka;
+using Aspire.Hosting.Dapr;
+using Aspire.Hosting.Lifecycle;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var kafka = builder.AddKafka("kafka", port: 6000)
-	.WithTopic("wait_times", 2).WithTopic("ride_requests", 4);
-
-var citus = builder.AddPostgres("citus")
+var postgres = builder.AddPostgres("postgres")
 	.WithImage("jwhiteatdocker/citus", "12.0.0-pg14")
 	.WithPgAdmin();
 
-var rideService = builder.AddProject<Projects.Application_RideService>("rideService")
-	.WithReference(citus)
-	.WithReference(kafka)
-	.WithReplicas(2);
+var kafka = builder.AddKafka("kafka")
+	.AddTopic("wait_times", 2);
+
+var rideService = builder.AddProject<Projects.Application_RideService>("ride-service")
+	.WithReference(postgres)
+	.WithReference(kafka);
 
 var simulator = builder.AddProject<Projects.Application_Simulator>("simulator")
-	.WithReference(citus)
+	.WithReference(postgres)
 	.WithReference(kafka);
 
 builder.AddProject<Projects.Application_UI>("ui")
-    .WithExternalHttpEndpoints()
-    .WithReference(citus);
-    // .WithReference(simulator);
+	.WithReference(postgres)
+	.WithReference(simulator)
+	.WithExternalHttpEndpoints();
 
 builder.AddProject<Projects.Application_MigrationService>("migrations")
-	.WithReference(citus);
+	.WithReference(postgres);
 
 builder.Build().Run();

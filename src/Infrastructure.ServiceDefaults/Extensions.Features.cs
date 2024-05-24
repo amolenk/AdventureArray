@@ -23,9 +23,11 @@ public static partial class Extensions
 		builder.Properties.Add(nameof(FeatureRegistry), featureRegistry);
 
 		featureRegistry.RegisterDependencies(builder.Services, builder.Configuration);
+
+		ConfigureInstrumentation(builder, featureRegistry);
 	}
 
-	public static void MapFeatureEndpoints(this WebApplication app)
+	public static void MapFeatureEndpoints(this WebApplication app, bool authorize = true)
 	{
 		var featureRegistry = app.Services.GetService<FeatureRegistry>();
 		if (featureRegistry == null)
@@ -40,13 +42,26 @@ public static partial class Extensions
 		}
 
 		// Require authorization for all API endpoints.
-		var apiGroup = app.MapGroup("api").RequireAuthorization();
+		var apiGroup = app.MapGroup("api");
+		if (authorize) apiGroup.RequireAuthorization();
 
 		// Add the routes for all registered endpoints.
 		foreach (var endpoint in app.Services.GetServices<IApiEndpoint>())
 		{
 			endpoint.AddRoutes(apiGroup);
 		}
+	}
+
+	private static void ConfigureInstrumentation(IHostApplicationBuilder builder, FeatureRegistry featureRegistry)
+	{
+		builder.Services.AddOpenTelemetry()
+			.WithMetrics(meterProviderBuilder =>
+			{
+				foreach (var meterName in featureRegistry.GetInstrumentationMeterNames())
+				{
+					meterProviderBuilder.AddMeter(meterName);
+				}
+			});
 	}
 
 	private static IFeatureManager CreateFeatureManager(IConfiguration configuration)

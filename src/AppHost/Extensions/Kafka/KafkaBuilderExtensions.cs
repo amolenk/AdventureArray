@@ -1,6 +1,6 @@
 using Aspire.Hosting.Lifecycle;
 
-namespace AdventureArray.Infrastructure.AppHost.Kafka;
+namespace AdventureArray.Infrastructure.AppHost.Extensions.Kafka;
 
 public static class KafkaBuilderExtensions
 {
@@ -11,7 +11,7 @@ public static class KafkaBuilderExtensions
     /// <param name="configureContainer">Callback to configure PgAdmin container resource.</param>
     /// <param name="containerName">The name of the container (Optional).</param>
     /// <returns>A reference to the <see cref="IResourceBuilder{T}"/>.</returns>
-    public static IResourceBuilder<T> WithTopic<T>(this IResourceBuilder<T> builder, string topicName, int partitionCount = 1) where T : KafkaServerResource
+    public static IResourceBuilder<T> AddTopic<T>(this IResourceBuilder<T> builder, string topicName, int partitionCount = 1) where T : KafkaServerResource
     {
 	    builder.WithAnnotation(new KafkaTopicAnnotation
 	    {
