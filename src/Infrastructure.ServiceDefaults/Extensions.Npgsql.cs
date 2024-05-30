@@ -12,17 +12,7 @@ public static partial class Extensions
 	{
 		ArgumentNullException.ThrowIfNull(builder);
 
-		// // Automatic registration of a pooled DbContext as a scoped service (opinionated defaults).
-		// builder.AddNpgsqlDbContext<ApplicationDbContext>("postgres");
-
-		var connectionString = builder.Configuration.GetConnectionString("postgres")
-		                       ?? throw new InvalidOperationException("Connection string is not configured.");
-
-		// Register the DbContextFactory as a singleton service.
-		builder.Services.AddDbContextFactory<ApplicationDbContext>((_, options) => options
-			.UseNpgsql(connectionString));
-
-		// Instrumentation using Aspire settings is added to the DbContext, including retries and timeouts.
-		builder.EnrichNpgsqlDbContext<ApplicationDbContext>();
+		// Automatic registration of a pooled DbContext as a scoped service (opinionated defaults).
+		builder.AddNpgsqlDbContext<ApplicationDbContext>("postgres");
 	}
 }
