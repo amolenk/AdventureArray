@@ -8,7 +8,6 @@ using AdventureArray.Infrastructure.Persistence;
 using MassTransit;
 using MassTransit.Mediator;
 using Microsoft.EntityFrameworkCore;
-using Dapr.Client;
 
 namespace AdventureArray.Application.Simulator.Features.Simulation.SimulateWaitTimes;
 

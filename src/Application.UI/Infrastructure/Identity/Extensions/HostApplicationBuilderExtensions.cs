@@ -97,8 +97,8 @@ public static class HostApplicationBuilderExtensions
 		builder.Services.AddOptions<CookieAuthenticationOptions>(cookieScheme).Configure<CookieOidcRefresher>(
 			(cookieOptions, refresher) =>
 			{
-				cookieOptions.Events.OnValidatePrincipal = context =>
-					refresher.ValidateOrRefreshCookieAsync(context, oidcScheme);
+				cookieOptions.Events.OnValidatePrincipal = new Func<CookieValidatePrincipalContext, Task>(context =>
+					refresher.ValidateOrRefreshCookieAsync(context, oidcScheme));
 			});
 		builder.Services.AddOptions<OpenIdConnectOptions>(oidcScheme).Configure(oidcOptions =>
 		{

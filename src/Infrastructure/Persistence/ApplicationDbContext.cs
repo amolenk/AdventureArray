@@ -1,6 +1,8 @@
 using AdventureArray.Domain.Algemeen;
 using AdventureArray.Domain.Gebruiker;
 using AdventureArray.Domain.Rides;
+using EfCore.NamingConverter;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace AdventureArray.Infrastructure.Persistence;
 
@@ -19,6 +21,11 @@ public class ApplicationDbContext : DbContext
 		ArgumentNullException.ThrowIfNull(mediator);
 
 		_mediator = mediator;
+	}
+
+	protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+	{
+		configurationBuilder.AddNamingConventions(NamingPolicy.SnakeCaseLower);
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)

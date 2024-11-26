@@ -11,41 +11,40 @@
 		Deze heeft een known vulnerability. Tot er een nieuwe versie van MassTransit is voor nu opgelost door Azure.Identity rechtstreeks te installeren.
 		https://github.com/advisories/GHSA-wvxc-855f-jvrv
 		-->
-		<PackageReference Include="Azure.Identity" Version="1.11.1" />
+		<PackageReference Include="Azure.Identity" Version="1.13.1" />
 
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.1" />
-		<PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="8.0.1" />
-		<PackageReference Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.1.0" />
-		<PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
-		<PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
-		<PackageReference Include="MassTransit" Version="8.2.1" />
-		<PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.2.1" />
-		<PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.2.1" />
-		<PackageReference Include="MassTransit.Kafka" Version="8.2.1" />
-		<PackageReference Include="MassTransit.RabbitMQ" Version="8.2.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
+		<PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="8.0.2" />
+		<PackageReference Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.2.0" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.23.0" />
+		<PackageReference Include="EfCore.NamingConverter" Version="1.0.6" />
+		<PackageReference Include="MassTransit" Version="8.3.2" />
+		<PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.3.2" />
+		<PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.3.2" />
+		<PackageReference Include="MassTransit.Kafka" Version="8.3.2" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.3.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="9.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.5" />
-		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="8.5.0" />
-		<PackageReference Include="Microsoft.FeatureManagement" Version="3.3.0" />
-		<PackageReference Include="Npgsql" Version="8.0.3" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
-		<PackageReference Include="Npgsql.OpenTelemetry" Version="8.0.3" />
-		<PackageReference Include="OpenTelemetry" Version="1.8.1" />
-		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.8.1" />
-		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.8.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.0.0" />
+		<PackageReference Include="Microsoft.FeatureManagement" Version="4.0.0" />
+		<PackageReference Include="Npgsql" Version="9.0.1" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
+		<PackageReference Include="OpenTelemetry" Version="1.10.0" />
+		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.10.0" />
+		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.10.0" />
 		<PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.7.0-rc.1" />
-		<PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.8.1" />
-		<PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.8.1" />
+		<PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.10.0" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta.8" />
-		<PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.8.1" />
-		<PackageReference Include="protobuf-net" Version="3.2.30" />
-		<PackageReference Include="Refit" Version="7.0.0" />
-		<PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
+		<PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
+		<PackageReference Include="protobuf-net" Version="3.2.45" />
+		<PackageReference Include="Refit" Version="8.0.0" />
+		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

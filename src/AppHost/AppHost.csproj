@@ -1,28 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-		<RootNamespace>AdventureArray.Infrastructure.AppHost</RootNamespace>
-		<OutputType>Exe</OutputType>
-        <IsAspireHost>true</IsAspireHost>
-    </PropertyGroup>
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
 
-    <ItemGroup>
-        <PackageReference Include="Aspire.Hosting.AppHost" Version="8.0.1" />
-        <PackageReference Include="Aspire.Hosting.Azure" Version="8.0.1" />
-        <PackageReference Include="Aspire.Hosting.Azure.ApplicationInsights" Version="8.0.1" />
-        <PackageReference Include="Aspire.Hosting.Azure.EventHubs" Version="8.0.1" />
-        <PackageReference Include="Aspire.Hosting.Dapr" Version="8.0.1" />
-        <PackageReference Include="Aspire.Hosting.Kafka" Version="8.0.1" />
-        <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.0.1" />
-        <PackageReference Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.1.1" />
-    </ItemGroup>
+  <PropertyGroup>
+    <RootNamespace>AdventureArray.Infrastructure.AppHost</RootNamespace>
+    <OutputType>Exe</OutputType>
+    <IsAspireHost>true</IsAspireHost>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Application.MigrationService\Application.MigrationService.csproj" />
-      <ProjectReference Include="..\Application.RideService\Application.RideService.csproj" />
-      <ProjectReference Include="..\Application.Simulator\Application.Simulator.csproj" />
-      <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
-      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" IsAspireProjectResource="false" />
-    </ItemGroup>
+	<ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Azure" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Azure.ApplicationInsights" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Azure.EventHubs" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Kafka" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.0.0" />
+    <PackageReference Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.2.0" />
+  </ItemGroup>
 
+	<ItemGroup>
+    <ProjectReference Include="..\Application.MigrationService\Application.MigrationService.csproj" />
+    <ProjectReference Include="..\Application.RideService\Application.RideService.csproj" />
+    <ProjectReference Include="..\Application.Simulator\Application.Simulator.csproj" />
+    <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" IsAspireProjectResource="false" />
+  </ItemGroup>
 </Project>

@@ -1,3 +1,4 @@
+using System.Data;
 using Azure.Monitor.OpenTelemetry.AspNetCore;
 using AdventureArray.Infrastructure.Features;
 using Microsoft.AspNetCore.Http.Features;
@@ -133,10 +134,10 @@ public static class HostApplicationBuilderExtensions
 					configure.SetDbStatementForText = true;
 
 					// Exclude outbox state and transaction commands from EF Core telemetry
-					configure.Filter = (_, command) => !command.CommandText.Contains("FROM outbox_message")
-						&& !command.CommandText.Contains("FROM \"outbox_state\"")
-						&& !command.CommandText.Contains("FROM inbox_state")
-						&& !command.CommandText.Contains("UPDATE outbox_state");
+					configure.Filter = new Func<string, IDbCommand, bool>((_, command) => !command.CommandText.Contains("FROM outbox_message")
+					                                                                      && !command.CommandText.Contains("FROM \"outbox_state\"")
+					                                                                      && !command.CommandText.Contains("FROM inbox_state")
+					                                                                      && !command.CommandText.Contains("UPDATE outbox_state"));
 				})
 				.AddHttpClientInstrumentation()
 				.AddSource(DiagnosticHeaders.DefaultListenerName) // MassTransit ActivitySource

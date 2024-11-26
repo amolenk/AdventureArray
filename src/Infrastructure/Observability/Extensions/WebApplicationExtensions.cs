@@ -18,7 +18,7 @@ public static class WebApplicationExtensions
 				var feature = ctx.Features.Get<IExceptionHandlerFeature>();
 				if (feature is not null)
 				{
-					Activity.Current?.RecordException(feature.Error);
+					Activity.Current?.AddException(feature.Error);
 
 					await Results
 						.Problem(

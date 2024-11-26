@@ -1,7 +1,7 @@
 using AdventureArray.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using AdventureArray.Infrastructure.Persistence.Customization;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Hosting;
 
 namespace AdventureArray.Infrastructure.ServiceDefaults;
@@ -13,6 +13,9 @@ public static partial class Extensions
 		ArgumentNullException.ThrowIfNull(builder);
 
 		// Automatic registration of a pooled DbContext as a scoped service (opinionated defaults).
-		builder.AddNpgsqlDbContext<ApplicationDbContext>("postgres");
+		builder.AddNpgsqlDbContext<ApplicationDbContext>("postgres");//, configureDbContextOptions: options => options
+				// .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning))
+				// Enables migration of partitioned tables.
+				//.ReplaceService<IMigrationsSqlGenerator, CustomMigrationsSqlGenerator>());
 	}
 }

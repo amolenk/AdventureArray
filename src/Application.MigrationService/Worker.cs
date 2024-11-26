@@ -22,13 +22,15 @@ public class Worker(IServiceProvider serviceProvider, IHostApplicationLifetime h
             using var scope = serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            await EnsureDatabaseAsync(dbContext, stoppingToken);
-            await RunMigrationAsync(dbContext, stoppingToken);
-            await SeedDataAsync(dbContext, stoppingToken);
+            // await EnsureDatabaseAsync(dbContext, stoppingToken);
+            await dbContext.Database.MigrateAsync(stoppingToken);
+
+            // await RunMigrationAsync(dbContext, stoppingToken);
+            // await SeedDataAsync(dbContext, stoppingToken);
         }
         catch (Exception ex)
         {
-            activity?.RecordException(ex);
+            activity?.AddException(ex);
             throw;
         }
 
@@ -39,28 +41,28 @@ public class Worker(IServiceProvider serviceProvider, IHostApplicationLifetime h
     {
         var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
 
-        var strategy = dbContext.Database.CreateExecutionStrategy();
-        await strategy.ExecuteAsync(async () =>
-        {
+        // var strategy = dbContext.Database.CreateExecutionStrategy();
+        // await strategy.ExecuteAsync(async () =>
+        // {
             // Create the database if it does not exist.
             // Do this first so there is then a database to start a transaction against.
             if (!await dbCreator.ExistsAsync(cancellationToken))
             {
                 await dbCreator.CreateAsync(cancellationToken);
             }
-        });
+        // });
     }
 
     private static async Task RunMigrationAsync(ApplicationDbContext dbContext, CancellationToken cancellationToken)
     {
-        var strategy = dbContext.Database.CreateExecutionStrategy();
-        await strategy.ExecuteAsync(async () =>
-        {
+        // var strategy = dbContext.Database.CreateExecutionStrategy();
+        // await strategy.ExecuteAsync(async () =>
+        // {
             // Run migration in a transaction to avoid partial migration if it fails.
-            await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
+            // await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
             await dbContext.Database.MigrateAsync(cancellationToken);
-            await transaction.CommitAsync(cancellationToken);
-        });
+            // await transaction.CommitAsync(cancellationToken);
+        // });
     }
 
     private static async Task SeedDataAsync(ApplicationDbContext dbContext, CancellationToken cancellationToken)

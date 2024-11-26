@@ -72,38 +72,38 @@
     <MudText Typo="Typo.h3">Chip </MudText>
 
     <MudStack Row="true" Spacing="4">
-        <MudChip>Default</MudChip>
-        <MudChip Color="Color.Primary">Primary</MudChip>
-        <MudChip Color="Color.Secondary">Secondary</MudChip>
-        <MudChip Color="Color.Info">Info</MudChip>
-        <MudChip Color="Color.Success">Success</MudChip>
-        <MudChip Color="Color.Warning">Warning</MudChip>
-        <MudChip Color="Color.Error">Error</MudChip>
-        <MudChip Color="Color.Dark">Dark</MudChip>
+        <MudChip T="string">Default</MudChip>
+        <MudChip T="string" Color="Color.Primary">Primary</MudChip>
+        <MudChip T="string" Color="Color.Secondary">Secondary</MudChip>
+        <MudChip T="string" Color="Color.Info">Info</MudChip>
+        <MudChip T="string" Color="Color.Success">Success</MudChip>
+        <MudChip T="string" Color="Color.Warning">Warning</MudChip>
+        <MudChip T="string" Color="Color.Error">Error</MudChip>
+        <MudChip T="string" Color="Color.Dark">Dark</MudChip>
     </MudStack>
 
     <MudStack Row="true" Spacing="4">
-        <MudChip Variant="Variant.Text" Color="Color.Default">Default</MudChip>
-        <MudChip Variant="Variant.Text" Color="Color.Primary">Primary</MudChip>
-        <MudChip Variant="Variant.Text" Color="Color.Secondary">Secondary</MudChip>
-        <MudChip Variant="Variant.Text" Color="Color.Info">Info</MudChip>
-        <MudChip Variant="Variant.Text" Color="Color.Success">Success</MudChip>
-        <MudChip Variant="Variant.Text" Color="Color.Warning">Warning</MudChip>
-        <MudChip Variant="Variant.Text" Color="Color.Error">Error</MudChip>
-        <MudChip Variant="Variant.Text" Color="Color.Dark">Dark</MudChip>
+        <MudChip T="string" Variant="Variant.Text" Color="Color.Default">Default</MudChip>
+        <MudChip T="string" Variant="Variant.Text" Color="Color.Primary">Primary</MudChip>
+        <MudChip T="string" Variant="Variant.Text" Color="Color.Secondary">Secondary</MudChip>
+        <MudChip T="string" Variant="Variant.Text" Color="Color.Info">Info</MudChip>
+        <MudChip T="string" Variant="Variant.Text" Color="Color.Success">Success</MudChip>
+        <MudChip T="string" Variant="Variant.Text" Color="Color.Warning">Warning</MudChip>
+        <MudChip T="string" Variant="Variant.Text" Color="Color.Error">Error</MudChip>
+        <MudChip T="string" Variant="Variant.Text" Color="Color.Dark">Dark</MudChip>
     </MudStack>
 
     <MudText Typo="Typo.h3">Chip - Disabled </MudText>
 
     <MudStack Row="true" Spacing="4">
-        <MudChip Disabled="true">Default</MudChip>
-        <MudChip Disabled="true" Color="Color.Primary">Primary</MudChip>
-        <MudChip Disabled="true" Color="Color.Secondary">Secondary</MudChip>
-        <MudChip Disabled="true" Color="Color.Info">Info</MudChip>
-        <MudChip Disabled="true" Color="Color.Success">Success</MudChip>
-        <MudChip Disabled="true" Color="Color.Warning">Warning</MudChip>
-        <MudChip Disabled="true" Color="Color.Error">Error</MudChip>
-        <MudChip Disabled="true" Color="Color.Dark">Dark</MudChip>
+        <MudChip T="string" Disabled="true">Default</MudChip>
+        <MudChip T="string" Disabled="true" Color="Color.Primary">Primary</MudChip>
+        <MudChip T="string" Disabled="true" Color="Color.Secondary">Secondary</MudChip>
+        <MudChip T="string" Disabled="true" Color="Color.Info">Info</MudChip>
+        <MudChip T="string" Disabled="true" Color="Color.Success">Success</MudChip>
+        <MudChip T="string" Disabled="true" Color="Color.Warning">Warning</MudChip>
+        <MudChip T="string" Disabled="true" Color="Color.Error">Error</MudChip>
+        <MudChip T="string" Disabled="true" Color="Color.Dark">Dark</MudChip>
     </MudStack>
 
     <MudText Typo="Typo.h3">Card </MudText>
@@ -152,13 +152,13 @@
             </MudItem>
             <MudItem xs="12" md="12">
                 <MudText Class="mb-n3" Typo="Typo.body2">
-                    <MudChip>@(_value1 ?? "Not selected")</MudChip><MudChip>@(_value2 ?? "Not selected")</MudChip>
+                    <MudChip T="string">@(_value1 ?? "Not selected")</MudChip><MudChip T="string">@(_value2 ?? "Not selected")</MudChip>
                 </MudText>
             </MudItem>
             <MudItem xs="12" md="12" class="flex-column">
-                <MudSwitch @bind-Checked="_resetValueOnEmptyText" Color="Color.Primary">Reset Value on empty Text</MudSwitch>
-                <MudSwitch @bind-Checked="_coerceText" Color="Color.Secondary">Coerce Text to Value</MudSwitch>
-                <MudSwitch @bind-Checked="_coerceValue" Color="Color.Tertiary">Coerce Value to Text (if not found)</MudSwitch>
+                <MudSwitch T="string" @bind-Checked="_resetValueOnEmptyText" Color="Color.Primary">Reset Value on empty Text</MudSwitch>
+                <MudSwitch T="string" @bind-Checked="_coerceText" Color="Color.Secondary">Coerce Text to Value</MudSwitch>
+                <MudSwitch T="string" @bind-Checked="_coerceValue" Color="Color.Tertiary">Coerce Value to Text (if not found)</MudSwitch>
             </MudItem>
         </MudGrid>
     </MudCard>
@@ -220,7 +220,7 @@
         "Washington", "West Virginia", "Wisconsin", "Wyoming",
     };
 
-    private async Task<IEnumerable<string>> Search1(string value)
+    private async Task<IEnumerable<string>> Search1(string value, CancellationToken _)
     {
         // In real life use an asynchronous function for fetching data from an api.
         await Task.Delay(5);
@@ -231,7 +231,7 @@
         return _states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
     }
 
-    private async Task<IEnumerable<string>> Search2(string value)
+    private async Task<IEnumerable<string>> Search2(string value, CancellationToken _)
     {
         // In real life use an asynchronous function for fetching data from an api.
         await Task.Delay(5);
