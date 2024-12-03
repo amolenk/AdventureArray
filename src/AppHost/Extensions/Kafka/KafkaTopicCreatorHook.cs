@@ -29,15 +29,15 @@ internal sealed class KafkaTopicCreatorHook : IDistributedApplicationLifecycleHo
 			if (!kafkaResource.TryGetAnnotationsOfType<KafkaTopicAnnotation>(
 				    out var kafkaTopicAnnotations)) continue;
 
-			var connectionString = await kafkaResource.ConnectionStringExpression.GetValueAsync(cancellationToken);
-			if (connectionString is null) continue;
-
 			var topicSpecifications = kafkaTopicAnnotations
 				.Select(a => new TopicSpecification
 				{
 					Name = a.TopicName,
 					NumPartitions = a.NumPartitions
 				});
+
+			var connectionString = await kafkaResource.ConnectionStringExpression.GetValueAsync(cancellationToken);
+			if (connectionString is null) continue;
 
 			await TryCreateTopicsUntilSuccessfulAsync(connectionString, topicSpecifications, cancellationToken);
 		}

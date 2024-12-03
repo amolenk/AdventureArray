@@ -11,6 +11,7 @@
 	<ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
     <PackageReference Include="Aspire.Hosting.Azure" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Azure.AppContainers" Version="9.0.0" />
     <PackageReference Include="Aspire.Hosting.Azure.ApplicationInsights" Version="9.0.0" />
     <PackageReference Include="Aspire.Hosting.Azure.EventHubs" Version="9.0.0" />
     <PackageReference Include="Aspire.Hosting.Kafka" Version="9.0.0" />
@@ -25,4 +26,5 @@
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
+	
 </Project>

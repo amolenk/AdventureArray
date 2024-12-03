@@ -8,7 +8,7 @@ public class AzureCosmosDBPostgresServerResource(string name)
 	private const string BicepTemplateFile = "Extensions/AzureCosmosDBPostgres/template.bicep";
 
 	/// <summary>
-	/// Gets the connection string template for the manifest for the Azure Event Hubs endpoint.
+	/// Gets the connection string template for the manifest for the Cosmos DB connection string.
 	/// </summary>
 	public ReferenceExpression ConnectionStringExpression => ReferenceExpression.Create($"{ConnectionString}");
 
