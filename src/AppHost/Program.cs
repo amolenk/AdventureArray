@@ -12,8 +12,8 @@ var postgres = builder.AddPostgres("postgres")
 
 var kafka = builder.AddKafka("kafka")
 	.WithLifetime(ContainerLifetime.Persistent) // https://github.com/dotnet/aspire/issues/6651
-	.WithDataVolume("kafka-data");
-	// .AddTopic("wait_times", 2);
+	.WithDataVolume("kafka-data")
+	.AddTopic("wait_times", 2);
 
 var migrations = builder.AddProject<Projects.Application_MigrationService>("migrations")
 	.WithReference(postgres)
