@@ -59,7 +59,6 @@ public static partial class Extensions
             .WithTracing(tracing =>
             {
 	            tracing.AddAspNetCoreInstrumentation()
-		            .AddGrpcClientInstrumentation() // For Dapr sidecar calls
 		            .AddHttpClientInstrumentation()
 		            .AddSource(ApplicationActivitySource.Name);
             });

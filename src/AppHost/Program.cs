@@ -1,6 +1,8 @@
 using AdventureArray.Infrastructure.AppHost.Extensions.AzureCosmosDBPostgres;
 using AdventureArray.Infrastructure.AppHost.Extensions.Kafka;
 using Aspire.Hosting.Lifecycle;
+using Microsoft.AspNetCore.Builder;
+using Projects;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -11,33 +13,38 @@ var postgres = builder.AddPostgres("postgres")
 	.WithLifetime(ContainerLifetime.Persistent);
 
 var kafka = builder.AddKafka("kafka")
-	.WithLifetime(ContainerLifetime.Persistent) // https://github.com/dotnet/aspire/issues/6651
 	.WithDataVolume("kafka-data")
+	.WithKafkaUI()
+	.WithLifetime(ContainerLifetime.Persistent) // https://github.com/dotnet/aspire/issues/6651
 	.AddTopic("wait_times", 2);
 
-var migrations = builder.AddProject<Projects.Application_MigrationService>("migrations")
+var migrations = builder.AddProject<Application_MigrationService>("migrations")
 	.WithReference(postgres)
 	.WaitFor(postgres);
 
-var rideService = builder.AddProject<Projects.Application_RideService>("ride-service")
+var simulator = builder.AddProject<Application_Simulator>("simulator")
 	.WithReference(postgres)
 	.WithReference(kafka)
 	.WaitFor(kafka)
 	.WaitForCompletion(migrations)
 	.WithHttpHealthCheck("/health");
 
-var simulator = builder.AddProject<Projects.Application_Simulator>("simulator")
+var rideService = builder.AddProject<Application_RideService>("ride-service")
 	.WithReference(postgres)
 	.WithReference(kafka)
 	.WaitFor(kafka)
 	.WaitForCompletion(migrations)
 	.WithHttpHealthCheck("/health");
 
-builder.AddProject<Projects.Application_UI>("ui")
+builder.AddProject<Application_UI>("ui")
 	.WithReference(postgres)
 	.WithReference(simulator)
 	.WaitForCompletion(migrations)
 	.WithHttpHealthCheck("/health")
-	.WithExternalHttpEndpoints();
+	.WithExternalHttpEndpoints()
+	.PublishAsAzureContainerApp((module, containerApp) =>
+	{
+		containerApp.Template.Scale.MinReplicas = 0;
+	});
 
 builder.Build().Run();
